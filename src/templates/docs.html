@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{title}} — Splain docs</title>
+<meta name="description" content="Splain documentation: {{title}}.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='34' fill='%23f0a441'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../vendor/splain.css">
+<link rel="stylesheet" href="../css/site.css">
+</head>
+<body>
+
+<header class="site-head">
+    <div class="wrap">
+        <a class="wordmark" href="../">letme<b>splain</b></a>
+        <nav class="site-nav" aria-label="Site">
+            <a href="../">Home</a>
+            <a href="./" aria-current="page">Docs</a>
+            <a href="../about.html">About</a>
+            <a href="https://github.com/letmesplain" rel="noopener">GitHub</a>
+        </nav>
+    </div>
+</header>
+
+<div class="docs-grid wrap">
+    <nav class="docs-side" data-splain="docs-nav" aria-label="Documentation">
+        <p class="side-title">Manual</p>
+{{nav}}
+    </nav>
+
+    <article class="docs-body" data-splain="docs-page">
+{{content}}
+        <hr>
+        <p style="font-size:0.83rem; color:var(--muted);" data-splain="docs-provenance">
+            {{provenance}} The documentation is rendered from the package repository —
+            the same files that ship with Splain — so the site can't drift from the code.
+        </p>
+    </article>
+</div>
+
+<footer class="site-foot">
+    <div class="wrap">
+        <p class="wink">Powered by Splain — obviously.</p>
+        <p>© 2026 LetMeSplain · <a href="../">Home</a> ·
+           <a href="https://github.com/letmesplain" rel="noopener">GitHub</a></p>
+    </div>
+</footer>
+
+<script src="../vendor/splain.js"></script>
+<script src="../vendor/standalone.js"></script>
+<script>
+    // The docs tour themselves — of course they do.
+    SplainStandalone.mount({
+        progress: { enabled: false },
+        ui: {
+            nextButtonStyle: 'background: rgb(var(--primary-500)); color: rgb(var(--gray-950)); border-radius: 0.45rem; padding: 0.45rem 0.9rem; font-weight: 650; text-shadow: none;',
+            prevButtonStyle: 'background: transparent; color: rgb(var(--gray-300)); border: 1px solid rgba(var(--gray-300), 0.35); border-radius: 0.45rem; padding: 0.45rem 0.9rem; text-shadow: none;',
+        },
+        guides: [{
+            slug: 'tour-the-docs', title: 'Tour the docs', genre: 'walkthrough', version: 1,
+            steps: [
+                { key: 'nav', kind: 'instruction', playback: 'direct', title: 'The manual',
+                  instruction: 'Every page here is the same markdown that ships inside the package — rendered, never forked.',
+                  selector: '[data-splain="docs-nav"]', next: 'page' },
+                { key: 'page', kind: 'instruction', playback: 'direct', title: 'This page',
+                  instruction: 'And yes: the docs tour themselves. This popover is Splain’s real playback engine — the same bundle a host app ships.',
+                  selector: '[data-splain="docs-page"]', next: 'provenance' },
+                { key: 'provenance', kind: 'instruction', playback: 'direct', title: 'Where it comes from',
+                  instruction: 'Each page names the exact package commit it was rendered from. Guidance that can’t silently rot — including this guidance.',
+                  selector: '[data-splain="docs-provenance"]' },
+            ],
+        }],
+    });
+</script>
+
+</body>
+</html>

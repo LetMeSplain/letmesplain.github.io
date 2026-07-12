@@ -1,0 +1,13 @@
+{
+    "name": "letmesplain-site",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "node build.mjs",
+        "serve": "npm run build && python3 -m http.server 8377 --directory dist"
+    },
+    "devDependencies": {
+        "highlight.js": "^11.11.1",
+        "marked": "^16.4.1"
+    }
+}

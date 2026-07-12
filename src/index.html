@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Splain — your app can explain itself</title>
+<meta name="description" content="Splain is a self-hosted Laravel/Filament plugin: guided walkthroughs that spotlight your real UI, anchored to your code so they can't silently rot. Drafted by a model you configure, refined visually, gated by a validator.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='34' fill='%23f0a441'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="vendor/splain.css">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+
+<header class="site-head">
+    <div class="wrap">
+        <a class="wordmark" href="./">letme<b>splain</b></a>
+        <nav class="site-nav" aria-label="Site">
+            <a href="./" aria-current="page">Home</a>
+            <a href="docs/">Docs</a>
+            <a href="about.html">About</a>
+            <a href="https://github.com/letmesplain" rel="noopener">GitHub</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+
+<div class="hero wrap" id="hero" data-splain="hero">
+    <span class="eyebrow">hero</span>
+    <h1>Your app can <em>explain itself</em>.</h1>
+    <p class="support">
+        Splain is a self-hosted Laravel&thinsp;/&thinsp;Filament plugin for guided walkthroughs that
+        spotlight your <strong>real UI</strong> — through modals, dropdowns, and across pages.
+        Every step is anchored to your code, a checker replays every guide before anything
+        ships, and a model <em>you</em> configure drafts the first pass. The guidance your
+        users see runs entirely inside your app.
+    </p>
+    <div class="cta-row">
+        <button class="btn btn-torch" data-tour-start type="button">Take the tour — on this page</button>
+        <a class="btn btn-quiet" href="docs/">Read the docs</a>
+    </div>
+</div>
+
+<section id="demo">
+    <div class="wrap">
+        <span class="eyebrow">wears-your-clothes</span>
+        <h2>Same guide. Your clothes.</h2>
+        <p class="support" style="color:var(--muted); max-width:44em;">
+            Splain's launcher and popovers absorb the host app's own design tokens — the same
+            walkthrough looks native in every product it lands in. Flip the theme, then play
+            the walkthrough: what re-skins below is the <strong>real playback engine</strong>
+            reading the page's CSS variables, exactly as it does inside a Filament panel.
+        </p>
+
+        <div class="demo-shell">
+            <div class="theme-row" role="group" aria-label="Demo theme">
+                <span class="label">Dress it as:</span>
+                <button class="theme-btn" data-theme="saas" aria-pressed="false" type="button">
+                    <span class="swatch" style="background:#4f46e5"></span> Indigo SaaS
+                </button>
+                <button class="theme-btn" data-theme="logistics" aria-pressed="false" type="button">
+                    <span class="swatch" style="background:#dc2626"></span> Logistics
+                </button>
+                <button class="theme-btn" data-theme="fintech" aria-pressed="false" type="button">
+                    <span class="swatch" style="background:#059669"></span> Fintech dark
+                </button>
+                <button class="btn btn-torch" data-demo-start type="button" style="margin-left:auto">
+                    Play the walkthrough
+                </button>
+            </div>
+
+            <div class="mock-admin" data-splain="demo-app" aria-label="Demo admin application">
+                <div class="mock-top">
+                    <span class="mock-brand" data-demo-brand>Northwind<span class="dot-i">.</span></span>
+                    <input class="mock-search" data-splain="demo-search" placeholder="Search records…" aria-label="Search records">
+                </div>
+                <div class="mock-body">
+                    <nav class="mock-side" aria-label="Demo sections">
+                        <a href="#demo" class="on">Customers</a>
+                        <a href="#demo">Invoices</a>
+                        <a href="#demo">Reports</a>
+                        <a href="#demo">Settings</a>
+                    </nav>
+                    <div class="mock-main">
+                        <h3>Customers</h3>
+                        <div class="mock-toolbar">
+                            <button class="mock-new" data-splain="demo-new" type="button">New customer</button>
+                        </div>
+                        <table class="mock-table" data-splain="demo-table">
+                            <thead>
+                                <tr><th>Name</th><th>Plan</th><th>Status</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Sable &amp; Co.</td><td>Growth</td><td><span class="pill">Active</span></td></tr>
+                                <tr><td>Marigold Labs</td><td>Starter</td><td><span class="pill">Active</span></td></tr>
+                                <tr><td>Fernwood Group</td><td>Enterprise</td><td><span class="pill">Trial</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <p class="demo-note">
+                No mock popovers, no video: this page loads Splain's shipped free-tier bundle,
+                and the demo app is just HTML wearing three sets of design tokens. The dot in
+                the corner is real too — it tours this very page.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section id="receipts">
+    <div class="wrap">
+        <span class="eyebrow">receipts</span>
+        <h2>Every beat below is shipped and demo-able.</h2>
+
+        <div class="beats" data-splain="receipts">
+            <div class="beat">
+                <h3>Spotlights the real UI</h3>
+                <p>Guides advance when users actually complete the step — not when they click
+                "next" on faith. A failed validation doesn't fool it; a decision branches it.</p>
+            </div>
+            <div class="beat">
+                <h3>Follows across pages</h3>
+                <p>Finish a page's steps, click the highlighted nav link, and the guide resumes
+                on arrival. Hand-offs expire quietly instead of ambushing anyone later.</p>
+            </div>
+            <div class="beat">
+                <h3>Can't silently rot</h3>
+                <p><code>splain:check</code> simulates playback on every page before anything
+                ships — unreachable steps, dead ends, and broken hand-offs fail loudly. The
+                <code>--drift</code> gate fails your CI when code deletes an anchor a guide
+                depends on.</p>
+            </div>
+            <div class="beat">
+                <h3>Drafted by <em>your</em> model</h3>
+                <p><code>splain:generate</code> reads your code and drafts guides through an
+                endpoint you configure — your key, your perimeter, your call. Splain ships no
+                key and no default endpoint. Drafts land unpublished, flagged for review.</p>
+            </div>
+            <div class="beat">
+                <h3>Humans gate publishing</h3>
+                <p>The Studio flags every step the generator wasn't sure about; you resolve them
+                by clicking the real element on the real page. Publishing requires zero errors,
+                zero open flags, and a named sign-off that the guide reflects how the work is
+                <em>really</em> done.</p>
+            </div>
+            <div class="beat">
+                <h3>Onboarding you can see</h3>
+                <p>Ordered tracks give new users a checklist with a clear next step; server-side
+                progress (off by default) stores a pointer to your user — never a copy of
+                personal data — and powers an honest completion report.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="honesty">
+    <div class="wrap">
+        <span class="eyebrow">honest-scope</span>
+        <h2>Splain says its own limits out loud.</h2>
+        <p class="support" style="color:var(--muted); max-width:44em;">
+            In the product, in the docs, and here. Honesty is the differentiator, so it gets a
+            component:
+        </p>
+        <div data-splain="honest-scope">
+        <div class="honest" style="margin-bottom:1rem;">
+            <b>In-perimeter, precisely scoped.</b> The guidance your users see runs entirely in
+            your app — no third-party script, no external calls at runtime. Generation is the
+            one deliberate crossing: your code goes to the endpoint <em>you</em> configure. You
+            own that crossing.
+        </div>
+        <div class="honest" style="margin-bottom:1rem;">
+            <b>Privacy Mode is a presentation aid, not a security control.</b> One toggle blurs
+            flagged fields and covers document scans so you can record tutorials with zero
+            post-production — but the data remains in the page. Never rely on it for security.
+        </div>
+        <div class="honest">
+            <b>Release pending.</b> Splain is in the proving stage: it runs in production-shaped
+            hosts and a public release is being prepared — but it is not on Packagist yet and the
+            license is still being finalized. What this site claims is what the code does today.
+        </div>
+        </div>
+    </div>
+</section>
+
+<section id="quickstart">
+    <div class="wrap">
+        <span class="eyebrow">quickstart</span>
+        <h2>The whole install, honestly.</h2>
+<pre data-splain="quickstart" tabindex="0"><code class="language-bash">composer require splain/splain        # release pending — see the note below
+php artisan migrate                   # migrations load automatically — nothing to publish
+php artisan filament:assets
+
+# then, on any Filament panel:
+#   ->plugin(SplainPlugin::make())
+
+php artisan splain:doctor             # verifies the install end to end</code></pre>
+        <p class="code-caption">
+            The Packagist release is pending license finalization — today Splain installs via a
+            private repository for early-access hosts.
+            <a href="https://github.com/letmesplain" rel="noopener">Ask about early access</a>.
+        </p>
+    </div>
+</section>
+
+<section id="pricing">
+    <div class="wrap">
+        <span class="eyebrow">pricing-posture</span>
+        <h2>Planned pricing.</h2>
+        <p class="support" style="color:var(--muted); max-width:44em;">
+            The boundary is real (it's enforced in the package's architecture); the prices are
+            being decided. The posture: everything an individual developer needs is free —
+            teams pay for the organizational layer.
+        </p>
+        <div class="tiers">
+            <div class="tier">
+                <h3>Free</h3>
+                <p class="who">for every host, forever</p>
+                <ul>
+                    <li>The playback engine &amp; launcher</li>
+                    <li><code>splain:check</code> + the CI drift gate</li>
+                    <li>Privacy Mode</li>
+                    <li>Guides-as-code (export / import)</li>
+                    <li>Tracks &amp; the learner checklist</li>
+                    <li>Server-side progress recording</li>
+                </ul>
+            </div>
+            <div class="tier">
+                <h3>Pro</h3>
+                <p class="who">for teams — planned</p>
+                <ul>
+                    <li>The Studio: visual design mode on the live page</li>
+                    <li>Review inbox &amp; attested publishing gate</li>
+                    <li>Generation (bring-your-own model)</li>
+                    <li>Visual track builder &amp; assignment</li>
+                    <li>Onboarding completion report</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="origin" style="border-bottom:0;">
+    <div class="wrap">
+        <span class="eyebrow">proving-ground</span>
+        <h2>Proven where guidance is hardest.</h2>
+        <p class="support" style="color:var(--muted); max-width:44em;">
+            Splain has been a standalone package from day one — and it earns its claims against
+            a live staffing platform: real workflows, real privacy stakes, real users
+            who need the walkthrough to be <em>right</em>. Every feature on this page shipped
+            only after playing end-to-end there.
+            <a href="about.html">The longer story&nbsp;→</a>
+        </p>
+    </div>
+</section>
+
+</main>
+
+<footer class="site-foot">
+    <div class="wrap">
+        <p class="wink">Powered by Splain — obviously.</p>
+        <p>© 2026 LetMeSplain · <a href="docs/">Docs</a> · <a href="about.html">About</a> ·
+           <a href="https://github.com/letmesplain" rel="noopener">GitHub</a></p>
+    </div>
+</footer>
+
+<script src="vendor/splain.js"></script>
+<script src="vendor/standalone.js"></script>
+<script src="js/site.js"></script>
+
+</body>
+</html>

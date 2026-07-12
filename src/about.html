@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About — Splain</title>
+<meta name="description" content="Where Splain comes from: a standalone package proven against a live staffing platform, built on one rule — the software should never claim more than it does.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='34' fill='%23f0a441'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+
+<header class="site-head">
+    <div class="wrap">
+        <a class="wordmark" href="./">letme<b>splain</b></a>
+        <nav class="site-nav" aria-label="Site">
+            <a href="./">Home</a>
+            <a href="docs/">Docs</a>
+            <a href="about.html" aria-current="page">About</a>
+            <a href="https://github.com/letmesplain" rel="noopener">GitHub</a>
+        </nav>
+    </div>
+</header>
+
+<main class="wrap" style="max-width:46rem; padding-top:3.5rem;">
+
+    <span class="eyebrow">proving-ground</span>
+    <h1 style="font-size:2.4rem;">Guidance is easy to demo.<br>It's hard to keep true.</h1>
+
+    <p>
+        Every team knows the ritual: someone new starts, and someone experienced walks
+        them through it — again. The tools that promise to fix this mostly bolt a tour
+        on from outside: a browser extension, a third-party script, a recorded overlay
+        that breaks the first time the interface changes and nobody notices for months.
+    </p>
+    <p>
+        Splain was built on a different bet: <strong>guidance belongs inside the app,
+        anchored to the code, and the build should fail when the two drift apart.</strong>
+        A guide's steps name real elements with exact selectors. A checker replays every
+        guide against every page before anything ships. If a refactor deletes an anchor
+        a guide depends on, your CI goes red — the walkthrough can't silently rot into
+        a lie.
+    </p>
+
+    <h2>The proving ground</h2>
+    <p>
+        Splain has been a standalone package from day one — and it grew up against a
+        deliberately hard test bed: a live staffing platform with real workflows,
+        real privacy stakes, and real users. That environment set the bar
+        for everything on this site:
+    </p>
+    <ul>
+        <li>Walkthroughs had to survive modals, confirmation dialogs, dropdown menus,
+            failed validations, and multi-page journeys — because the real workflows
+            used all of them.</li>
+        <li>Privacy Mode exists because recording a tutorial over real records is
+            unacceptable — and it is honestly scoped as a presentation aid, because
+            calling it more would be a lie.</li>
+        <li>The publishing gate demands a named human sign-off that a guide describes
+            how work is <em>really</em> done — because the interface allowing an action
+            is not the same as that being the workflow. (Staff aren't added by clicking
+            "New" — they arrive through hiring. A guide that says otherwise is worse
+            than no guide.)</li>
+    </ul>
+
+    <figure class="shot" style="margin:1.8rem 0;">
+        <img src="img/filament-playback.png"
+             alt="A Splain walkthrough playing inside a real Filament admin panel: the page is dimmed, a table of widgets is spotlit, and a popover titled 'Your widget list' explains it."
+             width="1440" height="900" loading="lazy">
+        <figcaption>The real thing: a guide spotlighting a table inside a genuine Filament
+        panel — this screenshot comes from the package's own test workbench, which CI
+        drives end-to-end on every push.</figcaption>
+    </figure>
+
+    <h2>The recursion</h2>
+    <p>
+        Splain's own Studio ships with a Splain tour of itself. The docs on this site
+        tour themselves. The dot in the corner of this page is the real playback
+        engine, running the shipped free-tier bundle. We couldn't help it — and it
+        keeps us honest: if the product can't explain itself, why would you trust it
+        to explain yours?
+    </p>
+
+    <h2>The rule that governs everything</h2>
+    <div class="honest" style="margin: 1.2rem 0 1.6rem;">
+        <b>The software never claims more than it does.</b> In the product, in the
+        docs, and on this site: limits are stated out loud, unproven things are labeled
+        planned, and "it works" always means "there is a test that proves it."
+    </div>
+    <p>
+        That's also why this site is short on adjectives and long on receipts. Splain
+        isn't revolutionary — in-app guidance is a proven category. It's a different
+        set of trade-offs: self-hosted instead of SaaS, code-anchored instead of
+        fragile, built-in instead of bolted on, honest instead of shiny.
+    </p>
+
+    <p style="margin-top:2.5rem;">
+        <a class="btn btn-torch" href="./">Back to the tour</a>
+        <a class="btn btn-quiet" href="docs/" style="margin-left:0.6rem;">Read the manual</a>
+    </p>
+
+</main>
+
+<footer class="site-foot">
+    <div class="wrap">
+        <p class="wink">Powered by Splain — obviously.</p>
+        <p>© 2026 LetMeSplain · <a href="docs/">Docs</a> ·
+           <a href="https://github.com/letmesplain" rel="noopener">GitHub</a></p>
+    </div>
+</footer>
+
+</body>
+</html>
