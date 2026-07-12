@@ -1,4 +1,4 @@
-<!-- synced from splain@6961e15 docs/schema.md — edit THERE, then re-run bin/sync-docs.sh -->
+<!-- synced from splain@78e9916 docs/schema.md — edit THERE, then re-run bin/sync-docs.sh -->
 
 # The guide JSON, field by field
 

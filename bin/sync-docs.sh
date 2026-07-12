@@ -19,7 +19,12 @@ for page in "${PAGES[@]}"; do
     } > "content/docs/$page.md"
 done
 
+{
+    printf '<!-- synced from splain@%s CHANGELOG.md — edit THERE, then re-run bin/sync-docs.sh -->\n\n' "$SHA"
+    cat "$PKG/CHANGELOG.md"
+} > "content/docs/changelog.md"
+
 mkdir -p src/vendor
 cp "$PKG/resources/dist/splain.js" "$PKG/resources/dist/standalone.js" "$PKG/resources/dist/splain.css" src/vendor/
 
-echo "synced ${#PAGES[@]} docs pages + free playback bundles from splain@$SHA"
+echo "synced ${#PAGES[@]} docs pages + changelog + free playback bundles from splain@$SHA"

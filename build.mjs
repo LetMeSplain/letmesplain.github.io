@@ -19,6 +19,7 @@ const PAGES = [
     ['adapters', 'Adapters'],
     ['ci', 'CI & the drift gate'],
     ['schema', 'Guide schema'],
+    ['changelog', 'Changelog'],
 ];
 
 const slugify = (text) => text.toLowerCase().replace(/<[^>]+>/g, '').replace(/[^a-z0-9\s-]/g, '').trim().replace(/\s+/g, '-');
@@ -72,8 +73,7 @@ for (const [slug, title] of PAGES) {
     }).join('\n');
 
     const html = shell
-        .replace('{{title}}', title)
-        .replace('{{title}}', title)
+        .replaceAll('{{title}}', title)
         .replace('{{nav}}', nav)
         .replace('{{content}}', marked.parse(raw.replace(/^<!--[^>]*-->\n*/, '')))
         .replace('{{provenance}}', provenance);

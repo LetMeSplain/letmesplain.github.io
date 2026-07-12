@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Splain — your app can explain itself</title>
 <meta name="description" content="Splain is a self-hosted Laravel/Filament plugin: guided walkthroughs that spotlight your real UI, anchored to your code so they can't silently rot. Drafted by a model you configure, refined visually, gated by a validator.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Splain">
+<meta property="og:title" content="Splain — your app can explain itself">
+<meta property="og:description" content="Self-hosted, code-anchored walkthroughs for Laravel & Filament — guidance that can't silently rot.">
+<meta property="og:url" content="https://letmesplain.dev/">
+<meta property="og:image" content="https://letmesplain.dev/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='34' fill='%23f0a441'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="vendor/splain.css">
 <link rel="stylesheet" href="css/site.css">
@@ -199,8 +209,43 @@ php artisan splain:doctor             # verifies the install end to end</code></
         <p class="code-caption">
             The Packagist release is pending license finalization — today Splain installs via a
             private repository for early-access hosts.
-            <a href="https://github.com/letmesplain" rel="noopener">Ask about early access</a>.
+            <a href="https://github.com/letmesplain" rel="noopener">Ask about early access</a> —
+            the org profile explains how.
         </p>
+    </div>
+</section>
+
+<section id="studio">
+    <div class="wrap">
+        <span class="eyebrow">the-studio-seen</span>
+        <h2>The Studio, seen.</h2>
+        <p class="support" style="color:var(--muted); max-width:44em;">
+            The pro tier isn't a roadmap slide — these are screenshots from the package's
+            own test workbench, the same one CI drives on every push.
+        </p>
+        <div class="shots">
+            <figure class="shot">
+                <img src="img/studio-design-mode.png" width="1440" height="900" loading="lazy"
+                     alt="Splain Studio design mode: a dark editing panel over a live admin page, with fields for the step's title, instruction, bubble position, and a Pick-on-page button for choosing what gets highlighted.">
+                <figcaption><b>Design mode</b> — edit a step on the live page. "Pick on
+                page" turns a click on the real element into a stable selector; you never
+                read the machine code.</figcaption>
+            </figure>
+            <figure class="shot">
+                <img src="img/studio-hub.png" width="1440" height="900" loading="lazy"
+                     alt="The Studio hub: a guides table showing genre, status, version, pages, a green 'clean' check badge, a needs-review count, and View / Design mode / Publish actions.">
+                <figcaption><b>The hub</b> — every guide with its live check result and
+                review debt. Publish is gated: zero errors, zero open flags, and a named
+                sign-off.</figcaption>
+            </figure>
+            <figure class="shot">
+                <img src="img/studio-report.png" width="1440" height="900" loading="lazy"
+                     alt="The onboarding report page showing its default empty state: 'Progress recording is off' with instructions for opting in, and a note pointing at the docs for exactly what gets stored.">
+                <figcaption><b>The onboarding report</b> — shown here in its honest default
+                state: progress recording is <em>off</em> until you opt in, and the empty
+                state tells you exactly what would be stored.</figcaption>
+            </figure>
+        </div>
     </div>
 </section>
 

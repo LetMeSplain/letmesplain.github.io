@@ -1,4 +1,4 @@
-<!-- synced from splain@6961e15 docs/studio.md — edit THERE, then re-run bin/sync-docs.sh -->
+<!-- synced from splain@78e9916 docs/studio.md — edit THERE, then re-run bin/sync-docs.sh -->
 
 # The Studio
 

@@ -1,4 +1,4 @@
-<!-- synced from splain@6961e15 docs/privacy-mode.md — edit THERE, then re-run bin/sync-docs.sh -->
+<!-- synced from splain@78e9916 docs/privacy-mode.md — edit THERE, then re-run bin/sync-docs.sh -->
 
 # Privacy Mode (the eye toggle)
 

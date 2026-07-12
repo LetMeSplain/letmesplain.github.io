@@ -1,4 +1,4 @@
-<!-- synced from splain@6961e15 docs/progress.md — edit THERE, then re-run bin/sync-docs.sh -->
+<!-- synced from splain@78e9916 docs/progress.md — edit THERE, then re-run bin/sync-docs.sh -->
 
 # Server-side progress — what is stored about your users
 
