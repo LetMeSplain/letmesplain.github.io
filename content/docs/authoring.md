@@ -1,4 +1,4 @@
-<!-- synced from splain@78e9916 docs/authoring.md — edit THERE, then re-run bin/sync-docs.sh -->
+<!-- synced from splain@4028e58 docs/authoring.md — edit THERE, then re-run bin/sync-docs.sh -->
 
 # Hand-authoring guides (no Studio required)
 

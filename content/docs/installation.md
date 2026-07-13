@@ -1,4 +1,4 @@
-<!-- synced from splain@78e9916 docs/installation.md — edit THERE, then re-run bin/sync-docs.sh -->
+<!-- synced from splain@4028e58 docs/installation.md — edit THERE, then re-run bin/sync-docs.sh -->
 
 # Installing Splain
 
@@ -14,22 +14,15 @@ walkthroughs and page tours that live in your own database. This page gets you f
 composer require splain/splain
 ```
 
-**Not on Packagist yet?** While Splain is installed from a local checkout, tell
-Composer where to find it before requiring it — add this to your app's
-`composer.json` and require the `@dev` version:
+**Not on Packagist yet.** Splain is release-pending while the license is
+finalized. Today it installs via a **private Composer repository for
+early-access hosts** — [ask for early access](https://github.com/LetMeSplain/.github/issues/new?template=early-access.yml)
+(one GitHub issue: your app and stack) and you'll get the repository line for
+your `composer.json` plus the `@dev` require. Want just a heads-up when the
+public release lands? [Subscribe to the release announcement](https://github.com/LetMeSplain/.github/issues/1).
 
-```json
-"repositories": [
-    { "name": "splain", "type": "path", "url": "/path/to/splain" }
-]
-```
-
-```bash
-composer require splain/splain:@dev
-```
-
-A path install symlinks the package, so pulling new Splain code updates your app
-immediately — no re-require needed.
+(Developing against a local checkout? A `path`-type repository entry pointing
+at your clone works the way you'd expect and symlinks the package.)
 
 ## 2. Run the migration
 
@@ -138,8 +131,8 @@ Fail-safe by default: draft guides play **only** for people who pass the
 the gate falls back to the Studio's umbrella gate, and in `local` environments
 any authenticated user passes). Set `SPLAIN_SERVE_DRAFTS=true` only in throwaway
 dev environments where drafts should reach everyone — never in production, since
-walkthroughs guide users through real actions on real data. Published guides
-published (after they pass `splain:check --strict`) reach users.
+walkthroughs guide users through real actions on real data. Only published
+guides (which pass the attested publish gate) reach users.
 
 ### `privacy.masks` (default: `[]`)
 

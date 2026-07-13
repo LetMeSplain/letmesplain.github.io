@@ -1,11 +1,11 @@
-<!-- synced from splain@78e9916 CHANGELOG.md — edit THERE, then re-run bin/sync-docs.sh -->
+<!-- synced from splain@4028e58 CHANGELOG.md — edit THERE, then re-run bin/sync-docs.sh -->
 
 # Changelog
 
 Splain is **pre-release**: nothing has been tagged, so everything lives under
 Unreleased. Entries are grouped by capability rather than date — the goal is that a
 newcomer can read this top to bottom and know what exists and how proven it is.
-(Suites at last update: package Pest 133+ · vitest 49 · browser e2e 38 · host
+(Suites at last update: package Pest 133+ · vitest 49 · browser e2e 38 Playwright runs · host
 integration 20+ — all run by CI on every push, across PHP 8.3/8.4 × Filament v3/v4.)
 
 ## [Unreleased]

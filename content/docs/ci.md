@@ -1,4 +1,4 @@
-<!-- synced from splain@78e9916 docs/ci.md — edit THERE, then re-run bin/sync-docs.sh -->
+<!-- synced from splain@4028e58 docs/ci.md — edit THERE, then re-run bin/sync-docs.sh -->
 
 # CI: guides that can't silently rot
 

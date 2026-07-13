@@ -1,4 +1,4 @@
-<!-- synced from splain@78e9916 docs/generation.md — edit THERE, then re-run bin/sync-docs.sh -->
+<!-- synced from splain@4028e58 docs/generation.md — edit THERE, then re-run bin/sync-docs.sh -->
 
 # Generation (pro, bring-your-own model)
 

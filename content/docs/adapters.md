@@ -1,4 +1,4 @@
-<!-- synced from splain@78e9916 docs/adapters.md — edit THERE, then re-run bin/sync-docs.sh -->
+<!-- synced from splain@4028e58 docs/adapters.md — edit THERE, then re-run bin/sync-docs.sh -->
 
 # Splain adapters — architecture & expansion
 
@@ -79,7 +79,7 @@ boots on load.
 | Adapter | Status | Notes |
 |---|---|---|
 | **Filament v3** | shipped | the reference adapter; playback + Studio |
-| **Filament v4** | **shipped + verified (playback AND Studio hub)** | Constraint `^3.2 \|\| ^4.0`, CI runs the full suite on BOTH majors. Verified on a fresh Laravel 13 + Filament v4.11 app: install, all splain:* commands, in-browser playback, and the FULL Studio hub (guide inventory, track builder with ordered-guides repeater + assignment manager, onboarding report). The hub is version-split — `SplainStudioHubV3`/`V4` roots outside composer's autoload (a runtime prefix autoloader in StudioServiceProvider), selected by installed major in StudioPlugin — because v4's Schema unification made v3's `form(Form)`/`infolist(Infolist)` signatures unloadable under v4 and vice versa. Proving ground: `~/projects/splain-v4-test`. |
+| **Filament v4** | **shipped + verified (playback AND Studio hub)** | Constraint `^3.2 \|\| ^4.0`, CI runs the full suite on BOTH majors. Verified on a fresh Laravel 13 + Filament v4.11 app: install, all splain:* commands, in-browser playback, and the FULL Studio hub (guide inventory, track builder with ordered-guides repeater + assignment manager, onboarding report). The hub is version-split — `SplainStudioHubV3`/`V4` roots outside composer's autoload (a runtime prefix autoloader in StudioServiceProvider), selected by installed major in StudioPlugin — because v4's Schema unification made v3's `form(Form)`/`infolist(Infolist)` signatures unloadable under v4 and vice versa. |
 | **Filament v5** | not yet | exists (5.x); deliberately outside the constraint until v4 is fully served. |
 | **pure TypeScript / standalone** | **shipped (v0.1, reference)** | Splain with no Filament and no PHP: `resources/dist/standalone.js` renders the launcher/checklist chrome (neutral skin) from a payload object and boots the engine. **Browser-verified end-to-end** (launcher, checklist, tour, walkthrough spotlight, and decision branching) on a plain HTML page with `window.Livewire`/`window.filament` both `undefined`. See below + `examples/standalone/`. The Studio (authoring) stays a separate Laravel-side concern. |
 | **Livewire without Filament** | designed | same engine; the adapter renders the launcher in the host's own Blade/Livewire components. Livewire events already drive it. |
@@ -117,7 +117,7 @@ Ship two files — the engine and the standalone adapter — then hand it a payl
 `prefers-color-scheme`-aware skin — pass `skin: false` to supply your own CSS),
 injects the payload script, and boots the engine. For an SPA, call `mount()` again
 after a route change (it replaces the prior chrome) and/or dispatch `splain:navigated`.
-`steps` are the same shape the Filament serializer emits (see `docs/generation-design.md`
+`steps` are the same shape the Filament serializer emits (see `docs/schema.md`
 and the payload snapshot); a server or a static build produces the payload however it
 likes — the adapter only cares about the shape.
 
