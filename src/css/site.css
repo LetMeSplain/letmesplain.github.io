@@ -383,3 +383,22 @@ body.driver-active .theme-row, body.driver-active .theme-row * { pointer-events:
     .theme-btn { padding: 0.7rem 1rem 0.7rem 0.8rem; }
     .driver-popover-footer button { min-height: 44px; min-width: 44px; }
 }
+
+/* ── Terminal receipt block ─────────────────────────────────────────────── */
+
+.terminal {
+    background: #141317;
+    border: 1px solid var(--line);
+    border-radius: 0.6rem;
+    padding: 1.2rem 1.4rem;
+    overflow-x: auto;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    max-width: 46rem;
+}
+.terminal code { background: none; padding: 0; color: var(--ink); }
+.t-prompt { color: var(--torch); user-select: none; }
+.t-flag { color: #8fbfdc; }
+.t-err { color: #e88; font-weight: 600; }
+.t-ok { color: var(--check); }
+.t-comment { color: #7d766e; font-style: italic; }

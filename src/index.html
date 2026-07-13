@@ -171,6 +171,33 @@
     </div>
 </section>
 
+<section id="drift-proof">
+    <div class="wrap">
+        <span class="eyebrow">the-receipt</span>
+        <h2>Watch it catch the rot.</h2>
+        <p class="support" style="color:var(--muted); max-width:44em;">
+            A guide anchors to <code>data-splain="product-name"</code>. Someone renames that
+            field in a refactor and doesn't notice the walkthrough now points at nothing. In a
+            SaaS overlay, users find out. Here, <strong>the build does</strong> — this is the
+            real, unedited output of <code>splain:check --drift</code> after exactly that change:
+        </p>
+        <pre class="terminal" aria-label="Terminal output of splain:check --drift"><code><span class="t-prompt">$</span> php artisan splain:check <span class="t-flag">--drift</span>
+
+ <span class="t-err">ERROR</span>  add-a-product v1 (published): anchor [data-splain="product-name"]
+        no longer exists in the code (rotted).
+ <span class="t-ok">INFO</span>   help-a-customer v1 (published): OK.
+ <span class="t-ok">INFO</span>   meet-your-customers v1 (published): OK.
+ <span class="t-ok">INFO</span>   welcome-to-lamplight v1 (published): OK.
+
+<span class="t-prompt">$</span> echo $?
+<span class="t-err">1</span>   <span class="t-comment"># non-zero — the CI job fails, the PR goes red, the guide never ships broken</span></code></pre>
+        <p class="code-caption">Captured live from the
+            <a href="https://lamplight-demo.laravel.cloud" target="_blank" rel="noopener">Lamplight demo</a>'s
+            own source. The <code>--drift</code> gate is free-tier — wire it into any CI in a few lines
+            (<a href="docs/ci.html">recipe</a>).</p>
+    </div>
+</section>
+
 <section id="honesty">
     <div class="wrap">
         <span class="eyebrow">honest-scope</span>
