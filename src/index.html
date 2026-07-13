@@ -13,6 +13,11 @@
 <meta property="og:image" content="https://letmesplain.dev/img/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:video" content="https://letmesplain.dev/img/studio-narrated.mp4">
+<meta property="og:video:secure_url" content="https://letmesplain.dev/img/studio-narrated.mp4">
+<meta property="og:video:type" content="video/mp4">
+<meta property="og:video:width" content="1400">
+<meta property="og:video:height" content="620">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='34' fill='%23f0a441'/%3E%3C/svg%3E">
@@ -258,13 +263,47 @@ php artisan splain:doctor             # verifies the install end to end</code></
             human signs off — recorded from the package's own test workbench:
         </p>
         <figure class="shot" style="margin:0 0 2rem; max-width:46rem;">
-            <video src="img/studio-loop.mp4" poster="img/studio-poster.jpg"
-                   controls muted loop playsinline preload="none"
+            <div class="vid-toggle" role="group" aria-label="Choose how to watch the Studio film">
+                <button type="button" class="vid-mode is-on" data-mode="narrated" aria-pressed="true">&#128266; With narration</button>
+                <button type="button" class="vid-mode" data-mode="captioned" aria-pressed="false">Captioned &middot; silent</button>
+            </div>
+            <video id="studiovid" src="img/studio-narrated.mp4" poster="img/studio-narrated-poster.jpg"
+                   controls playsinline preload="none"
                    width="1400" height="620"
                    style="width:100%; height:auto; aspect-ratio:1400/620; border:1px solid var(--line); border-radius:.55rem; display:block; background:#141317;"
-                   aria-label="Screen recording of the Splain Studio: a guide flagged for review, edited in design mode on the live page, and the gated publish action."></video>
-            <figcaption>The Studio publish loop, captioned. Sound off, ~30 seconds.</figcaption>
+                   aria-label="Narrated screen recording of the Splain Studio: a guide flagged for review, edited in design mode on the live page, and the gated publish action, with a spoken walkthrough."></video>
+            <figcaption id="studiocap">The Studio publish loop, narrated by a real voice. ~40 seconds, sound on.</figcaption>
         </figure>
+        <script>
+        (function () {
+            var v = document.getElementById('studiovid');
+            var cap = document.getElementById('studiocap');
+            if (!v) return;
+            var MODES = {
+                narrated:  { src: 'img/studio-narrated.mp4', muted: false, loop: false,
+                             cap: 'The Studio publish loop, narrated by a real voice. ~40 seconds, sound on.' },
+                captioned: { src: 'img/studio-loop.mp4', muted: true, loop: true,
+                             cap: 'The Studio publish loop, captioned. Sound off, ~30 seconds.' }
+            };
+            document.querySelectorAll('.vid-mode').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    var m = MODES[btn.dataset.mode];
+                    if (!m || (v.currentSrc && v.currentSrc.indexOf(m.src) > -1)) return;
+                    v.pause();
+                    v.loop = m.loop; v.muted = m.muted;
+                    v.setAttribute('src', m.src);
+                    v.load();
+                    if (cap) cap.textContent = m.cap;
+                    document.querySelectorAll('.vid-mode').forEach(function (x) {
+                        var on = x === btn;
+                        x.classList.toggle('is-on', on);
+                        x.setAttribute('aria-pressed', on ? 'true' : 'false');
+                    });
+                    v.play().catch(function () {});  /* the click is a user gesture, so sound is allowed */
+                });
+            });
+        })();
+        </script>
         <div class="shots">
             <figure class="shot">
                 <img src="img/studio-design-mode.png" width="1440" height="900" loading="lazy"

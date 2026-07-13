@@ -172,6 +172,19 @@ section { padding: 4.5rem 0; border-bottom: 1px solid var(--line); }
 .theme-btn .swatch { width: 0.85rem; height: 0.85rem; border-radius: 50%; display: inline-block; }
 .theme-btn[aria-pressed='true'] { border-color: var(--torch); color: var(--ink); }
 
+.vid-toggle { display: flex; gap: 0.5rem; margin: 0 0 0.7rem; flex-wrap: wrap; }
+.vid-mode {
+    font: 500 0.8rem/1 var(--sans);
+    color: var(--muted);
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 2rem;
+    padding: 0.45rem 0.9rem;
+    cursor: pointer;
+}
+.vid-mode:hover { color: var(--ink); border-color: var(--muted); }
+.vid-mode.is-on { color: var(--ink); border-color: var(--torch); }
+
 /* The mock admin reads the SAME absorption vars the engine does. */
 .mock-admin {
     --m-bg: rgb(var(--demo-bg));
