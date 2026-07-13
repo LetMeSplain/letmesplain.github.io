@@ -22,7 +22,9 @@ const PAGES = [
     ['changelog', 'Changelog'],
 ];
 
-const slugify = (text) => text.toLowerCase().replace(/<[^>]+>/g, '').replace(/[^a-z0-9\s-]/g, '').trim().replace(/\s+/g, '-');
+// Entities decode/strip FIRST: parseInline emits &#39; for apostrophes, which the
+// character filter would otherwise mangle into ids like who39s-… (dead anchors).
+const slugify = (text) => text.toLowerCase().replace(/<[^>]+>/g, '').replace(/&[#a-z0-9]+;/g, '').replace(/[^a-z0-9\s-]/g, '').trim().replace(/\s+/g, '-');
 
 const marked = new Marked({
     gfm: true,
