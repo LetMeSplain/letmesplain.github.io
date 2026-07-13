@@ -382,12 +382,29 @@ body.driver-active .theme-row { position: relative; z-index: 10010; }
 body.driver-active .theme-row, body.driver-active .theme-row * { pointer-events: auto; }
 
 /* "Dress it as" only lands if the HELPER re-skins too, not just the demo card.
-   The popover already tints its Next button with the host primary; also tint the
-   title and its divider, so indigo/red/green/amber hosts each produce a visibly
-   different popover instead of the same white-or-dark box. Loads after splain.css,
-   so this wins by order. */
-.driver-popover-title { color: rgb(var(--primary-500)); }
-.driver-popover-title { border-bottom-color: rgba(var(--primary-500), 0.35); }
+   Two things fought that: (1) the popover only tinted its Next button, and (2) iOS/
+   Chrome dark mode force-darkens a floating modal, overriding the host colors we
+   pass through. Fix both: pin the popover's color-scheme to the ACTIVE theme so the
+   browser stops overriding it, and drive its whole surface — background, ink, title
+   accent, divider, arrow — from the host tokens. Loads after splain.css, so these
+   win by order + specificity. */
+.driver-popover {
+    color-scheme: light;
+    background-color: rgb(var(--demo-panel, 36, 34, 41));
+    color: rgb(var(--demo-ink, 236, 231, 221));
+}
+.dark .driver-popover {
+    color-scheme: dark;
+    background-color: rgb(var(--demo-panel, 36, 34, 41));
+    color: rgb(var(--demo-ink, 236, 231, 221));
+}
+.driver-popover-title { color: rgb(var(--primary-500)); border-bottom-color: rgba(var(--primary-500), 0.35); }
+.driver-popover-description,
+.dark .driver-popover-description { color: rgba(var(--demo-ink, 236, 231, 221), 0.72); }
+.driver-popover-arrow-side-top.driver-popover-arrow { border-top-color: rgb(var(--demo-panel, 36, 34, 41)); }
+.driver-popover-arrow-side-bottom.driver-popover-arrow { border-bottom-color: rgb(var(--demo-panel, 36, 34, 41)); }
+.driver-popover-arrow-side-left.driver-popover-arrow { border-left-color: rgb(var(--demo-panel, 36, 34, 41)); }
+.driver-popover-arrow-side-right.driver-popover-arrow { border-right-color: rgb(var(--demo-panel, 36, 34, 41)); }
 
 
 /* Expectation-setting for phone visitors: shown only where it's true. */
