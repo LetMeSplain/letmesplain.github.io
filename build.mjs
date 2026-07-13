@@ -2,6 +2,7 @@
 // No framework, no client-side rendering — the identity is hand-authored and the
 // docs are RENDERED from package markdown (synced by bin/sync-docs.sh), never forked.
 import { cpSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import hljs from 'highlight.js';
 import { Marked } from 'marked';
 
@@ -95,4 +96,28 @@ writeFileSync('dist/sitemap.xml',
         urls.map((u) => `  <url><loc>${u}</loc></url>`).join('\n')}\n</urlset>\n`);
 writeFileSync('dist/robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\n`);
 
-console.log(`built ${PAGES.length} docs pages + sitemap/robots + static site into dist/`);
+// Cache-busting: content-hash the versionable local assets and stamp every reference
+// to them in the built HTML with ?v=<hash>. A CSS/JS fix then changes the URL, so
+// browsers and the CDN fetch it immediately instead of serving a stale cached copy.
+const ASSETS = ['css/site.css', 'js/site.js', 'vendor/splain.css', 'vendor/splain.js', 'vendor/standalone.js'];
+const hashes = [];
+for (const asset of ASSETS) {
+    try {
+        hashes.push([asset, createHash('sha1').update(readFileSync(`dist/${asset}`)).digest('hex').slice(0, 10)]);
+    } catch {
+        // asset not present in this build — skip it
+    }
+}
+const bust = (html) => hashes.reduce(
+    (acc, [asset, h]) => acc.replace(new RegExp(`(="[^"]*${asset.replace(/\./g, '\\.')})(")`, 'g'), `$1?v=${h}$2`),
+    html,
+);
+const htmlFiles = [
+    ...readdirSync('dist').filter((f) => f.endsWith('.html')).map((f) => `dist/${f}`),
+    ...readdirSync('dist/docs').filter((f) => f.endsWith('.html')).map((f) => `dist/docs/${f}`),
+];
+for (const path of htmlFiles) {
+    writeFileSync(path, bust(readFileSync(path, 'utf8')));
+}
+
+console.log(`built ${PAGES.length} docs pages + sitemap/robots + static site into dist/ (cache-busted ${hashes.length} assets across ${htmlFiles.length} pages)`);
