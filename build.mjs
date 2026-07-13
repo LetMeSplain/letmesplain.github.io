@@ -61,6 +61,8 @@ for (const entry of readdirSync('src')) {
 
 const shell = readFileSync('src/templates/docs.html', 'utf8');
 
+const SITE = 'https://letmesplain.dev';
+
 for (const [slug, title] of PAGES) {
     const raw = readFileSync(`content/docs/${slug}.md`, 'utf8');
 
@@ -74,7 +76,9 @@ for (const [slug, title] of PAGES) {
         return `        <a href="${href}"${current}>${navTitle}</a>`;
     }).join('\n');
 
+    const pageUrl = slug === 'index' ? `${SITE}/docs/` : `${SITE}/docs/${slug}.html`;
     const html = shell
+        .replaceAll('{{ogUrl}}', pageUrl)
         .replaceAll('{{title}}', title)
         .replace('{{nav}}', nav)
         .replace('{{content}}', marked.parse(raw.replace(/^<!--[^>]*-->\n*/, '')))
@@ -83,4 +87,12 @@ for (const [slug, title] of PAGES) {
     writeFileSync(`dist/docs/${slug === 'index' ? 'index' : slug}.html`, html);
 }
 
-console.log(`built ${PAGES.length} docs pages + static site into dist/`);
+// Crawl plumbing: the sitemap names every page; robots points at it.
+const urls = [`${SITE}/`, `${SITE}/about.html`,
+    ...PAGES.map(([slug]) => (slug === 'index' ? `${SITE}/docs/` : `${SITE}/docs/${slug}.html`))];
+writeFileSync('dist/sitemap.xml',
+    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${
+        urls.map((u) => `  <url><loc>${u}</loc></url>`).join('\n')}\n</urlset>\n`);
+writeFileSync('dist/robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\n`);
+
+console.log(`built ${PAGES.length} docs pages + sitemap/robots + static site into dist/`);

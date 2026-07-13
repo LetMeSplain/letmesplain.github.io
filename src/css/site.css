@@ -367,3 +367,12 @@ pre code { background: none; padding: 0; }
    itself. (The popover re-skins live because the tokens are CSS variables.) */
 body.driver-active .theme-row { position: relative; z-index: 10010; }
 body.driver-active .theme-row, body.driver-active .theme-row * { pointer-events: auto; }
+
+
+/* ── Touch targets: thumbs get 44px even where mice get compact chrome ──── */
+
+@media (pointer: coarse) {
+    .site-nav a { padding: 0.6rem 0.3rem; }
+    .theme-btn { padding: 0.7rem 1rem 0.7rem 0.8rem; }
+    .driver-popover-footer button { min-height: 44px; min-width: 44px; }
+}
