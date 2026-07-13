@@ -3,6 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Declare that this page manages its own light/dark surfaces, so Chrome's
+     "force dark web content" (and iOS auto-dark) stops overriding them — the tour
+     popover can then render the light host theme a visitor picks. -->
+<meta name="color-scheme" content="light dark">
 <title>Splain — your app can explain itself</title>
 <meta name="description" content="Splain is a self-hosted Laravel/Filament plugin: guided walkthroughs that spotlight your real UI, anchored to your code so they can't silently rot. Drafted by a model you configure, refined visually, gated by a validator.">
 <meta property="og:type" content="website">
