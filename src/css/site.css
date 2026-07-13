@@ -381,6 +381,14 @@ pre code { background: none; padding: 0; }
 body.driver-active .theme-row { position: relative; z-index: 10010; }
 body.driver-active .theme-row, body.driver-active .theme-row * { pointer-events: auto; }
 
+/* "Dress it as" only lands if the HELPER re-skins too, not just the demo card.
+   The popover already tints its Next button with the host primary; also tint the
+   title and its divider, so indigo/red/green/amber hosts each produce a visibly
+   different popover instead of the same white-or-dark box. Loads after splain.css,
+   so this wins by order. */
+.driver-popover-title { color: rgb(var(--primary-500)); }
+.driver-popover-title { border-bottom-color: rgba(var(--primary-500), 0.35); }
+
 
 /* Expectation-setting for phone visitors: shown only where it's true. */
 .phone-hint { display: none; color: var(--muted); font-size: 0.85rem; margin: 0.9rem 0 0; }

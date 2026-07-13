@@ -87,7 +87,7 @@
     // strings read the SAME absorption vars, so the demo's Next button changes
     // clothes with the theme too.
     const UI = {
-        nextButtonStyle: 'background: rgb(var(--primary-500)); color: rgb(var(--gray-950)); border-radius: 0.45rem; padding: 0.45rem 0.9rem; font-weight: 650; text-shadow: none;',
+        nextButtonStyle: 'background: rgb(var(--primary-500)); color: rgb(var(--demo-btn-ink, 27, 25, 30)); border: 0; border-radius: 0.45rem; padding: 0.45rem 0.9rem; font-weight: 650; text-shadow: none;',
         prevButtonStyle: 'background: transparent; color: rgb(var(--gray-300)); border: 1px solid rgba(var(--gray-300), 0.35); border-radius: 0.45rem; padding: 0.45rem 0.9rem; text-shadow: none;',
     };
 
