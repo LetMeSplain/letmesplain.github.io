@@ -369,6 +369,13 @@ body.driver-active .theme-row { position: relative; z-index: 10010; }
 body.driver-active .theme-row, body.driver-active .theme-row * { pointer-events: auto; }
 
 
+/* Expectation-setting for phone visitors: shown only where it's true. */
+.phone-hint { display: none; color: var(--muted); font-size: 0.85rem; margin: 0.9rem 0 0; }
+
+@media (pointer: coarse) and (max-width: 760px) {
+    .phone-hint { display: block; }
+}
+
 /* ── Touch targets: thumbs get 44px even where mice get compact chrome ──── */
 
 @media (pointer: coarse) {
