@@ -314,7 +314,7 @@ pre code { background: none; padding: 0; }
 .docs-body h2 { font-size: 1.45rem; margin-top: 2.4rem; border-bottom: 1px solid var(--line); padding-bottom: 0.4rem; }
 .docs-body h3 { font-size: 1.12rem; margin-top: 1.8rem; }
 .docs-body h2 a, .docs-body h3 a { color: inherit; }
-.docs-body img { max-width: 100%; border: 1px solid var(--line); border-radius: 0.5rem; }
+.docs-body img { max-width: 100%; height: auto; border: 1px solid var(--line); border-radius: 0.5rem; }
 .docs-body table { border-collapse: collapse; width: 100%; display: block; overflow-x: auto; font-size: 0.9rem; }
 .docs-body th, .docs-body td { border: 1px solid var(--line); padding: 0.5rem 0.75rem; text-align: left; }
 .docs-body th { background: var(--panel); }
@@ -335,7 +335,7 @@ pre code { background: none; padding: 0; }
 
 .shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1.1rem; margin-top: 2rem; }
 .shot { margin: 0; }
-.shot img { width: 100%; border: 1px solid var(--line); border-radius: 0.55rem; display: block; }
+.shot img { width: 100%; height: auto; border: 1px solid var(--line); border-radius: 0.55rem; display: block; }
 .shot figcaption { font-size: 0.83rem; color: var(--muted); margin-top: 0.5rem; }
 
 /* ── Motion: the entire budget ─────────────────────────────────────────── */
