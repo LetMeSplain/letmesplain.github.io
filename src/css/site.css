@@ -406,6 +406,23 @@ body.driver-active .theme-row, body.driver-active .theme-row * { pointer-events:
 .driver-popover-arrow-side-left.driver-popover-arrow { border-left-color: rgb(var(--demo-panel, 36, 34, 41)); }
 .driver-popover-arrow-side-right.driver-popover-arrow { border-right-color: rgb(var(--demo-panel, 36, 34, 41)); }
 
+/* THE launcher panel ("How do I…" menu) is the other half of the helper, and the
+   standalone bundle switched it dark via @media (prefers-color-scheme: dark) — i.e.
+   the DEVICE's dark mode, not the host theme. So on a dark-mode phone the menu stayed
+   dark even for a light host. Bind it to the host --demo tokens and the .dark CLASS
+   instead, color-scheme pinned; !important beats the runtime-injected device rule. */
+[data-splain-panel] {
+    color-scheme: light;
+    background: rgb(var(--demo-panel, 36, 34, 41)) !important;
+    color: rgb(var(--demo-ink, 236, 231, 221)) !important;
+    border-color: rgba(var(--demo-ink, 236, 231, 221), 0.14) !important;
+}
+.dark [data-splain-panel] { color-scheme: dark; }
+[data-splain-panel] .splain-heading,
+[data-splain-panel] .splain-foot { color: rgba(var(--demo-ink, 236, 231, 221), 0.6) !important; }
+[data-splain-panel] [data-splain-guide]:hover,
+[data-splain-panel] [data-splain-track-item]:hover { background: rgba(var(--primary-500), 0.13) !important; }
+
 
 /* Expectation-setting for phone visitors: shown only where it's true. */
 .phone-hint { display: none; color: var(--muted); font-size: 0.85rem; margin: 0.9rem 0 0; }
