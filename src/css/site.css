@@ -418,8 +418,8 @@ body.driver-active .theme-row, body.driver-active .theme-row * { pointer-events:
     border-color: rgba(var(--demo-ink, 236, 231, 221), 0.14) !important;
 }
 .dark [data-splain-panel] { color-scheme: dark; }
-[data-splain-panel] .splain-heading,
-[data-splain-panel] .splain-foot { color: rgba(var(--demo-ink, 236, 231, 221), 0.6) !important; }
+[data-splain-panel] .splain-heading { color: rgb(var(--primary-500)) !important; }
+[data-splain-panel] .splain-foot { color: rgba(var(--demo-ink, 236, 231, 221), 0.55) !important; }
 [data-splain-panel] [data-splain-guide]:hover,
 [data-splain-panel] [data-splain-track-item]:hover { background: rgba(var(--primary-500), 0.13) !important; }
 
