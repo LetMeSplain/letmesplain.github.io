@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Manifesto — Splain</title>
+<meta name="description" content="Help belongs in the app, should draft itself from your code, and must fail the build the day it stops being true. Cheaper to make, closer to the user, impossible to silently rot.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Splain">
+<meta property="og:title" content="The Splain manifesto — help belongs in the app, and it should build itself">
+<meta property="og:description" content="Two things are wrong with how software gets explained: it costs a week to write, and it's a lie the moment it ships. Here's the opposite of both.">
+<meta property="og:url" content="https://letmesplain.dev/manifesto.html">
+<meta property="og:image" content="https://letmesplain.dev/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='34' fill='%23f0a441'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="vendor/splain.css">
+<link rel="stylesheet" href="css/site.css">
+<style>
+    .tenets { list-style: none; margin: 2rem 0 0; padding: 0; counter-reset: tenet; display: flex; flex-direction: column; gap: 1.9rem; }
+    .tenets > li { counter-increment: tenet; position: relative; padding-inline-start: 3rem; }
+    .tenets > li::before { content: counter(tenet); position: absolute; inset-inline-start: 0; top: -0.15rem;
+        font: 500 1.05rem/1 var(--serif); color: var(--torch);
+        width: 2rem; height: 2rem; display: inline-flex; align-items: center; justify-content: center;
+        border: 1px solid rgba(240, 164, 65, 0.4); border-radius: 50%; }
+    .tenets h2 { font-size: 1.25rem; margin: 0 0 0.4rem; }
+    .tenets p { margin: 0; color: var(--muted); }
+    .tenets p b { color: var(--ink); font-weight: 600; }
+    .lede { font-size: 1.12rem; }
+    .lede b { color: var(--ink); }
+</style>
+</head>
+<body>
+
+<header class="site-head">
+    <div class="wrap">
+        <a class="wordmark" href="./">letme<b>splain</b></a>
+        <nav class="site-nav" aria-label="Site">
+            <a href="./">Home</a>
+            <a href="docs/">Docs</a>
+            <a href="manifesto.html" aria-current="page">Manifesto</a>
+            <a href="about.html">About</a>
+            <a href="https://github.com/letmesplain" rel="noopener">GitHub</a>
+        </nav>
+    </div>
+</header>
+
+<main class="wrap" style="max-width:46rem; padding-top:3.5rem;">
+
+    <span class="eyebrow" data-splain="manifesto-top">manifesto</span>
+    <h1 style="font-size:2.4rem;">Help belongs in the app.<br>And it should build itself.</h1>
+
+    <p class="lede">
+        Two things are wrong with how software gets explained — and Splain is built on
+        the opposite of both.
+    </p>
+
+    <p>
+        <b>It costs a week to write.</b> Someone sits down and hand-authors a knowledge
+        base — every step, every screenshot, every "now click the blue button" — for a
+        UI they're looking at right now and will change next sprint. Then a new hire
+        arrives and someone walks them through it by hand anyway. Then the next release
+        lands and the whole library gets rewritten. The tax never stops.
+    </p>
+    <p>
+        <b>And it's a lie the moment it ships.</b> That knowledge base lives on a
+        separate site, divorced from the code. The interface moves; the article doesn't.
+        It still loads, still ranks, still reads as authoritative — and quietly walks
+        users off a cliff. Nobody notices for months, because nothing <em>fails</em>.
+    </p>
+
+    <p>Here's what we believe instead.</p>
+
+    <ol class="tenets" data-splain="tenets">
+        <li>
+            <h2>Help belongs on the live page.</h2>
+            <p>The moment a user is stuck, the answer should be right there — on the real
+            screen, in the real app — not behind a link to a third-party docs site, not
+            in another tab, not in a twelve-minute video. They never leave the page
+            they're working on.</p>
+        </li>
+        <li>
+            <h2>It should draft itself from your code.</h2>
+            <p>Your app already knows what it does — its routes, its components, its forms
+            describe it. Splain reads that and writes the <b>first draft</b> of the
+            walkthrough. You refine it in a visual studio; you don't stare at a blank page
+            authoring steps you'll rewrite next release. The knowledge base, the tutorials,
+            the help articles you'd normally sink days into — they start themselves, and
+            arrive as something a user can actually follow instead of an article they have
+            to decode.</p>
+        </li>
+        <li>
+            <h2>It must be anchored to the code, or it rots.</h2>
+            <p>Every step names a real element with an exact selector, and a checker
+            replays every guide against every page before anything ships. Delete an element
+            a guide depends on, and the build goes <b>red</b> — the same way a broken test
+            does. Guidance that can lie silently isn't guidance; it's a liability with good
+            SEO.</p>
+        </li>
+        <li>
+            <h2>It stays inside your perimeter.</h2>
+            <p>Self-hosted, running in your own app. Your users' screens are yours — no
+            third-party script in the loop, nothing phoning home. Privacy Mode blurs
+            sensitive data for demos and screen-shares; it's a presentation aid, and we say
+            exactly that. It is not a security control, and calling it one would be the kind
+            of lie this whole product exists to prevent.</p>
+        </li>
+        <li>
+            <h2>It states its limits out loud.</h2>
+            <p>If a claim — in the product, the docs, or on this page — ever outruns what
+            the code actually does, that's a bug, and you should report it like one. Honesty
+            isn't the marketing voice here. It's the specific thing the software is built to
+            enforce: "it works" only ever means "there's a test that proves it."</p>
+        </li>
+    </ol>
+
+    <h2 style="margin-top:2.8rem;" data-splain="manifesto-close">Built-in beats bolt-on.</h2>
+    <p>
+        Guidance that's created from your app, delivered inside your app, and fails your
+        build the day it stops being true. Cheaper to make, closer to the user, impossible
+        to silently rot. That's the whole idea — and the dot in the corner of this page is
+        the shipped engine proving it can explain even itself.
+    </p>
+
+    <p style="margin-top:2.5rem;">
+        <a class="btn btn-torch" href="./">See it explain itself</a>
+        <a class="btn btn-quiet" href="docs/" style="margin-left:0.6rem;">Read the manual</a>
+    </p>
+
+</main>
+
+<footer class="site-foot">
+    <div class="wrap">
+        <p class="wink">Powered by Splain — obviously.</p>
+        <p><a href="mailto:hello@letmesplain.dev">hello@letmesplain.dev</a></p>
+        <p>© 2026 LetMeSplain · <a href="docs/">Docs</a> ·
+           <a href="https://github.com/letmesplain" rel="noopener">GitHub</a></p>
+    </div>
+</footer>
+
+<script src="vendor/splain.js"></script>
+<script src="vendor/standalone.js"></script>
+<script>
+    // The manifesto says the dot is real — so it tours this very page.
+    SplainStandalone.mount({
+        progress: { enabled: false },
+        ui: {
+            nextButtonStyle: 'background: rgb(var(--primary-500)); color: rgb(var(--demo-btn-ink, 27, 25, 30)); border: 0; border-radius: 0.45rem; padding: 0.45rem 0.9rem; font-weight: 650; text-shadow: none;',
+            prevButtonStyle: 'background: transparent; color: rgb(var(--gray-300)); border: 1px solid rgba(var(--gray-300), 0.35); border-radius: 0.45rem; padding: 0.45rem 0.9rem; text-shadow: none;',
+        },
+        guides: [{
+            slug: 'tour-the-manifesto', title: 'Tour this page', genre: 'walkthrough', version: 1,
+            steps: [
+                { key: 'thesis', kind: 'instruction', playback: 'direct', title: 'The whole thesis',
+                  instruction: 'Two problems — help costs a week to write, and it lies the day it ships. Everything below is the opposite of both.',
+                  selector: '[data-splain="manifesto-top"]', next: 'tenets' },
+                { key: 'tenets', kind: 'instruction', playback: 'direct', title: 'What we believe',
+                  instruction: 'Five tenets: on the live page, drafted from your code, anchored so it can’t rot, in your perimeter, honest about its limits.',
+                  selector: '[data-splain="tenets"]', popover_side: 'top', next: 'close' },
+                { key: 'close', kind: 'instruction', playback: 'direct', title: 'And this popover?',
+                  instruction: 'It’s the shipped free-tier engine, mounted through the standalone adapter — the same bundle a host app runs. The manifesto explaining itself.',
+                  selector: '[data-splain="manifesto-close"]' },
+            ],
+        }],
+    });
+</script>
+
+</body>
+</html>

@@ -89,7 +89,7 @@ for (const [slug, title] of PAGES) {
 }
 
 // Crawl plumbing: the sitemap names every page; robots points at it.
-const urls = [`${SITE}/`, `${SITE}/about.html`,
+const urls = [`${SITE}/`, `${SITE}/manifesto.html`, `${SITE}/about.html`,
     ...PAGES.map(([slug]) => (slug === 'index' ? `${SITE}/docs/` : `${SITE}/docs/${slug}.html`))];
 writeFileSync('dist/sitemap.xml',
     `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${
