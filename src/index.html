@@ -49,19 +49,29 @@
     <span class="eyebrow">hero</span>
     <h1>Your app can <em>explain itself</em>.</h1>
     <p class="support">
-        Splain is a self-hosted Laravel&thinsp;/&thinsp;Filament plugin for guided walkthroughs that
-        spotlight your <strong>real UI</strong> — through modals, dropdowns, and across pages.
-        Every step is anchored to your code, a checker replays every guide before anything
-        ships, and a model <em>you</em> configure drafts the first pass. The guidance your
-        users see runs entirely inside your app.
+        Splain adds guided, code-anchored walkthroughs to your Laravel/Filament app — in-app
+        help that can't silently go out of date. It's a self-hosted plugin for Laravel (the PHP
+        web framework) and its Filament admin panels (the popular PHP admin-panel framework), and
+        it spotlights your <strong>real UI</strong> — through modals, dropdowns, and across pages.
+        Every step is anchored to your code, a command simulates every guide in your test suite
+        before anything ships, and a model <em>you</em> configure drafts the first pass. The
+        guidance your users see runs entirely inside your app.
+    </p>
+    <p class="support" style="color:var(--muted); max-width:44em;">
+        <strong>Free &amp; open (Apache-2.0):</strong> the walkthrough player, the guards that keep
+        guides from silently rotting, and uncapped AI generation — everything a solo developer
+        needs. <strong>Pro (for teams):</strong> the visual editor and the team tools (review,
+        assignment, and completion reports). The specifics are named — and defined — further down.
     </p>
     <div class="cta-row">
         <button class="btn btn-torch" data-tour-start type="button">Take the tour — on this page</button>
         <a class="btn btn-quiet" href="https://lamplight-demo.laravel.cloud" target="_blank" rel="noopener">Try a live demo app ↗</a>
         <a class="btn btn-quiet" href="docs/">Read the docs</a>
     </div>
-    <p class="phone-hint">On a phone? The tour and docs work great here — the live demo
-    is a desktop admin panel, so bookmark it for the big screen.</p>
+    <p class="phone-hint">That tour launches from the small floating dot already live in the
+    corner of this very page — Splain is running on the page you're reading. On a phone? The tour
+    and docs work great here — the live demo is a desktop admin panel, so bookmark it for the big
+    screen.</p>
 </div>
 
 <section id="demo">
@@ -69,10 +79,11 @@
         <span class="eyebrow">wears-your-clothes</span>
         <h2>Same guide. Your clothes.</h2>
         <p class="support" style="color:var(--muted); max-width:44em;">
-            Splain's launcher and popovers absorb the host app's own design tokens — the same
-            walkthrough looks native in every product it lands in. Flip the theme, then play
-            the walkthrough: what re-skins below is the <strong>real playback engine</strong>
-            reading the page's CSS variables, exactly as it does inside a Filament panel.
+            Splain's launcher and popovers inherit your app's own colors, fonts, and spacing (its
+            CSS variables) — so the walkthrough looks native in every product it lands in; same
+            guide, your clothes. Flip the theme, then play the walkthrough: what re-skins below is
+            the <strong>real Splain player that ships in the product</strong>, not a mockup, reading
+            the page's CSS variables exactly as it does inside a Filament panel.
         </p>
 
         <div class="demo-shell">
@@ -129,7 +140,9 @@
                 the corner is real too — it tours this very page. Want a real app?
                 <a href="https://lamplight-demo.laravel.cloud" target="_blank" rel="noopener">Lamplight
                 Supply Co.</a> runs on Laravel Cloud with its onboarding built in — spotlight
-                tours, a branching walkthrough, an onboarding checklist, and Privacy Mode.
+                tours, a branching walkthrough, an onboarding checklist, and Privacy Mode (which
+                masks real records on screen while you record a tutorial — a presentation aid, not
+                a security guarantee).
             </p>
         </div>
     </div>
@@ -138,7 +151,7 @@
 <section id="receipts">
     <div class="wrap">
         <span class="eyebrow">receipts</span>
-        <h2>Every beat below is shipped and demo-able.</h2>
+        <h2>Every capability below is shipped and demo-able.</h2>
 
         <div class="beats" data-splain="receipts">
             <div class="beat">
@@ -154,26 +167,33 @@
             <div class="beat">
                 <h3>Can't silently rot</h3>
                 <p><code>splain:check</code> simulates playback on every page before anything
-                ships — unreachable steps, dead ends, and broken hand-offs fail loudly. The
-                <code>--drift</code> gate fails your CI when code deletes an anchor a guide
+                ships — unreachable steps, dead ends, and broken hand-offs fail loudly. Drift is
+                when your code changes so a guide no longer matches the real UI; the drift gate
+                fails your CI — the automated checks that run before you merge code — when code
+                deletes an anchor (how a step points at a specific on-page element) that a guide
                 depends on.</p>
             </div>
             <div class="beat">
                 <h3>Drafted by <em>your</em> model</h3>
                 <p><code>splain:generate</code> reads your code and drafts guides through an
-                endpoint you configure — your key, your perimeter, your call. Splain ships no
-                key and no default endpoint. Drafts land unpublished, flagged for review.</p>
+                endpoint you configure: you point Splain at your own AI provider — your API key,
+                your servers, your call — so nothing phones home. Splain ships no key and no
+                default endpoint. Drafts land unpublished, flagged for review.</p>
             </div>
             <div class="beat">
-                <h3>Humans gate publishing</h3>
-                <p>The Studio flags every step the generator wasn't sure about; you resolve them
-                by clicking the real element on the real page. Publishing requires zero errors,
-                zero open flags, and a named sign-off that the guide reflects how the work is
-                <em>really</em> done.</p>
+                <h3>Humans sign off before publishing</h3>
+                <p>The Studio — Splain's built-in visual, point-and-click editor for creating and
+                editing guides inside your app — flags every step the generator wasn't sure about;
+                you resolve them by clicking the real element on the real page. Publishing requires
+                zero errors, zero open flags, and a named sign-off that the guide reflects how the
+                work is <em>really</em> done. <em>The Studio and this attested-publish step ship in
+                <code>splain/pro</code> (a separate, proprietary package); even on the free tier,
+                only guides you mark as published are shown to your users.</em></p>
             </div>
             <div class="beat">
                 <h3>Onboarding you can see</h3>
-                <p>Ordered tracks give new users a checklist with a clear next step; server-side
+                <p>Tracks — ordered learning paths you assign to users — give new users a checklist
+                with a clear next step; server-side
                 progress (off by default) stores a pointer to your user — never a copy of
                 personal data — and powers an honest completion report.</p>
             </div>
@@ -184,7 +204,7 @@
 <section id="drift-proof">
     <div class="wrap">
         <span class="eyebrow">the-receipt</span>
-        <h2>Watch it catch the rot.</h2>
+        <h2>Watch it catch the rot — guides that quietly stopped matching your UI.</h2>
         <p class="support" style="color:var(--muted); max-width:44em;">
             A guide anchors to <code>data-splain="product-name"</code>. Someone renames that
             field in a refactor and doesn't notice the walkthrough now points at nothing. In a
@@ -218,10 +238,10 @@
         </p>
         <div data-splain="honest-scope">
         <div class="honest" style="margin-bottom:1rem;">
-            <b>In-perimeter, precisely scoped.</b> The guidance your users see runs entirely in
-            your app — no third-party script, no external calls at runtime. Generation is the
-            one deliberate crossing: your code goes to the endpoint <em>you</em> configure. You
-            own that crossing.
+            <b>Runs entirely inside your app — nothing calls out to us.</b> It's in-perimeter and
+            precisely scoped: the guidance your users see runs entirely on your own servers — no
+            third-party script, no external calls at runtime. Generation is the one deliberate
+            crossing: your code goes to the endpoint <em>you</em> configure. You own that crossing.
         </div>
         <div class="honest" style="margin-bottom:1rem;">
             <b>Privacy Mode is a presentation aid, not a security control.</b> One toggle blurs
@@ -264,8 +284,8 @@ php artisan splain:doctor             # verifies the install end to end</code></
         <h2>The Studio, seen.</h2>
         <p class="support" style="color:var(--muted); max-width:44em;">
             The pro tier isn't a roadmap slide. Here's the real publish loop — a flagged
-            guide, an edit on the live page, and the gate that won't let it ship until a
-            human signs off — recorded from the package's own test workbench:
+            guide, an edit on the live page, and the check that won't let it ship until a
+            human signs off — recorded from our own automated test environment:
         </p>
         <figure class="shot" style="margin:0 0 2rem; max-width:46rem;">
             <div class="vid-toggle" role="group" aria-label="Choose how to watch the Studio film">
@@ -276,7 +296,7 @@ php artisan splain:doctor             # verifies the install end to end</code></
                    controls playsinline preload="none"
                    width="1400" height="620"
                    style="width:100%; height:auto; aspect-ratio:1400/620; border:1px solid var(--line); border-radius:.55rem; display:block; background:#141317;"
-                   aria-label="Narrated screen recording of the Splain Studio: a guide flagged for review, edited in design mode on the live page, and the gated publish action, with a spoken walkthrough."></video>
+                   aria-label="Narrated screen recording of the Splain Studio: a guide flagged for review, edited in design mode on the live page, and the sign-off-gated publish action, with a spoken walkthrough."></video>
             <figcaption id="studiocap">The Studio publish loop, narrated by a real voice. ~40 seconds, sound on.</figcaption>
         </figure>
         <script>
@@ -320,9 +340,9 @@ php artisan splain:doctor             # verifies the install end to end</code></
             <figure class="shot">
                 <img src="img/studio-hub.png" width="1440" height="900" loading="lazy"
                      alt="The Studio hub: a guides table showing genre, status, version, pages, a green 'clean' check badge, a needs-review count, and View / Design mode / Publish actions.">
-                <figcaption><b>The hub</b> — every guide with its live check result and
-                review debt. Publish is gated: zero errors, zero open flags, and a named
-                sign-off.</figcaption>
+                <figcaption><b>The hub</b> — Splain's guide-management screen: every guide with its
+                live check result and review debt. Publishing is blocked until zero errors, zero
+                open flags, and a named sign-off.</figcaption>
             </figure>
             <figure class="shot">
                 <img src="img/studio-report.png" width="1440" height="900" loading="lazy"
@@ -355,6 +375,10 @@ php artisan splain:doctor             # verifies the install end to end</code></
                     <li>Guides-as-code (export / import)</li>
                     <li>Tracks &amp; the learner checklist</li>
                     <li>Server-side progress recording</li>
+                    <li>AI generation — <code>splain:generate</code>, bring-your-own model, uncapped</li>
+                    <li><code>splain:make</code> — deterministic scaffold</li>
+                    <li><code>splain:suggest</code> — coverage discovery</li>
+                    <li><code>splain:doctor</code> + introspection</li>
                 </ul>
             </div>
             <div class="tier">
@@ -362,8 +386,7 @@ php artisan splain:doctor             # verifies the install end to end</code></
                 <p class="who">for teams — planned</p>
                 <ul>
                     <li>The Studio: visual design mode on the live page</li>
-                    <li>Review inbox &amp; attested publishing gate</li>
-                    <li>Generation (bring-your-own model)</li>
+                    <li>Review inbox &amp; attested publishing sign-off</li>
                     <li>Visual track builder &amp; assignment</li>
                     <li>Onboarding completion report</li>
                 </ul>
@@ -378,11 +401,22 @@ php artisan splain:doctor             # verifies the install end to end</code></
         <h2>Proven where guidance is hardest.</h2>
         <p class="support" style="color:var(--muted); max-width:44em;">
             Splain has been a standalone package from day one — and it earns its claims against
-            a live staffing platform: real workflows, real privacy stakes, real users
+            the makers' own production staffing app: real workflows, real privacy stakes, real users
             who need the walkthrough to be <em>right</em>. Every feature on this page shipped
             only after playing end-to-end there.
             <a href="about.html">The longer story&nbsp;→</a>
         </p>
+        <div class="proof-quote" data-splain="dogfood-proof">
+            <span class="lead">Guidance that keeps the app honest.</span>
+            <p>We installed Splain on our own production Filament admin and wrote guides for its
+                core workflows. One guide documented that new records should show a
+                &ldquo;Prospect&rdquo; status badge. On review, the live screen showed it blank
+                &mdash; and the <strong>guide was right</strong>: a framework null-state quirk had
+                been silently hiding that status on thousands of records. The guide didn&rsquo;t
+                just describe the app; it caught the app drifting from what it was built to do.
+                Fixed the same afternoon.</p>
+            <cite>&mdash; from using Splain on our own product</cite>
+        </div>
     </div>
 </section>
 

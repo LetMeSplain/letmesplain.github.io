@@ -1,4 +1,4 @@
-<!-- synced from splain@4028e58 CHANGELOG.md — edit THERE, then re-run bin/sync-docs.sh -->
+<!-- synced from splain@78003f2 CHANGELOG.md — edit THERE, then re-run bin/sync-docs.sh -->
 
 # Changelog
 

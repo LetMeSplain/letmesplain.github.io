@@ -1,9 +1,20 @@
-<!-- synced from splain@4028e58 docs/studio.md — edit THERE, then re-run bin/sync-docs.sh -->
+<!-- synced from splain@78003f2 docs/studio.md — edit THERE, then re-run bin/sync-docs.sh -->
 
 # The Studio
 
+> **The Studio ships in `splain/pro`** — a separate, proprietary package (`composer
+> require splain/pro`). The free package (`splain/splain`, Apache-2.0) is the playback
+> engine: it serves published guides and runs the launcher dot. The Studio is the paid
+> layer on top — the on-page visual editor, the hub, and the governed attested-publish
+> gate. Everything below describes that Pro layer unless noted otherwise.
+
+Splain shows your users interactive on-screen walkthroughs of your app; a guide is one
+such walkthrough. The Studio is Splain's built-in visual, point-and-click editor for
+creating and editing those guides inside your app (a Pro feature).
+
 The Studio is where a human refines what the AI drafted. It has two surfaces with
-one rule between them: **the hub is for the overall; the page is for the particular.**
+one rule between them: **the hub is for the overall; the page is for the particular** —
+i.e. the hub manages all your guides; design mode edits a single step on the actual page.
 
 - **The hub** — a "Guides" section inside one Filament panel of your choosing.
   See every guide, its health, and the AI's open questions; publish when clean.
@@ -37,11 +48,12 @@ two live badges:
 
 Open a guide to see the full story: every check error and warning spelled out,
 plus the **review inbox** — each flagged step with the AI's stated reasons.
-These are real; here's one from a production-shaped proving host:
+These are real; here's one from a demo app, where the AI flagged a step it
+couldn't confirm because a feature was switched off in that environment:
 
-> **confirm-readiness** — "Branch-flow-ENABLED rendering unverified:
-> services.branch.enabled is false in this host's env, so the Branch Wallet
-> section never rendered…"
+> **confirm-readiness** — "Optional section unverified: this feature was
+> disabled in the demo env, so the section it points at never rendered — a
+> human should confirm the step against a live screen where it's enabled…"
 
 Two header buttons work the inbox:
 
@@ -50,7 +62,13 @@ Two header buttons work the inbox:
 - **Edit a flag…** — rewrite the outstanding reasons (one per line) when you've
   verified part of a flag but not all of it. Emptying the box resolves it.
 
-### Publishing
+### Publishing (attested publish — splain/pro)
+
+The governed, named-human **attested publish** described here — before a guide goes live,
+Splain requires a named person to sign off that it reflects how the work is really done —
+is a **splain/pro** feature (the separate, proprietary package). In free `splain/splain`, a guide's draft/published
+status still controls visibility and you publish by flipping that status after your own
+review; the recorded, named-human sign-off of record below is what Pro adds.
 
 **Publish** flips a draft to published — but only through a gate: zero check
 errors AND zero unresolved review flags, **AND your sign-off**, all re-verified at
@@ -70,8 +88,9 @@ guide goes live. Reviewers see drafts in place via the `splain.preview-drafts`
 gate while they work.
 
 The hub is read-mostly on purpose: no creating, no deleting, no raw editing.
-Guides arrive by seeding JSON into the `splain_guides` table
-(see [authoring.md](authoring.md)); copy and anchors get refined in design mode.
+Guides arrive by seeding JSON into the `splain_guides` table (guides are stored as JSON —
+see [authoring.md](authoring.md); the hub reads them, it doesn't create them); copy and
+anchors get refined in design mode.
 
 ## Design mode
 
@@ -83,7 +102,8 @@ covers — optionally `:<step-key>` to jump straight to one step:
 ```
 
 Or run `window.SplainStudio.open()` in the browser console. (Buttons in the hub
-and an "edit" item in the helper dot's menu — see below.)
+and an "edit" item in the helper dot's menu — the helper dot is the small floating
+launcher Splain adds to your page — see below.)
 
 Opening it stops any guide that's mid-play, then shows a dark side panel. It
 edits any guide covering the current page — walkthroughs and page tours alike;
@@ -157,6 +177,11 @@ Design mode also edits each step's **Privacy Mode masks** ("Hide in Privacy Mode
 advanced) — one selector per line, `block:` prefix for an opaque cover.
 
 ## Committing Studio edits back to source: `splain:export`
+
+> **`splain:export` is a FREE command** — it ships in `splain/splain` and works without the
+> Studio. Guides-as-code (`splain:export` / `splain:import`) is part of the free package, so
+> you can round-trip guide JSON out of and back into version control whether or not you run
+> `splain/pro`.
 
 Studio edits live in the database (as draft revisions). To get them back into the
 version-controlled JSON that seeds your guides, export:

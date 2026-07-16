@@ -1,11 +1,14 @@
-<!-- synced from splain@4028e58 docs/generation.md — edit THERE, then re-run bin/sync-docs.sh -->
+<!-- synced from splain@78003f2 docs/generation.md — edit THERE, then re-run bin/sync-docs.sh -->
 
-# Generation (pro, bring-your-own model)
+# Generation (free, bring-your-own model)
+
+Splain shows your users interactive on-screen walkthroughs of your app; a guide is one such walkthrough. This page is about *drafting* one with a model.
 
 `splain:generate` drafts a guide for a resource by having a model read your app's
 **code** and produce guide JSON — then it runs that draft through the same validator
-`splain:check` uses, mechanically flags every anchor it couldn't verify, and lands the
-result as an **unpublished draft**. It is a drafting aid for a developer, never an
+`splain:check` uses, mechanically flags every anchor it couldn't verify (an anchor is
+how a guide step points at a specific element on your page, usually a `data-splain`
+marker you place in your code), and lands the result as an **unpublished draft**. It is a drafting aid for a developer, never an
 autopilot: nothing it produces reaches your users until a human reviews it, signs off,
 and publishes.
 
@@ -89,13 +92,25 @@ model still can't ship something dangerous:
    it honest. (It repairs *errors* only; it never feeds a `needs_review` flag back as
    something to "fix", so a model can't learn to delete a flag to pass.)
 2. **Mechanical anchor-flagging.** The only anchors Splain can verify are the
-   `data-splain` markers `splain:introspect` actually found in your source. Every other
+   `data-splain` markers — attributes you add to your HTML (`data-splain="…"`) so guides
+   can reliably point at an element even after a refactor — that `splain:introspect`
+   actually found in your source. Every other
    anchor a model emits — a fabricated `data-splain` value, a bare `.fi-*` class, a
    proposed injection — gets a `needs_review` flag saying "confirm this on the live
    screen." A model cannot launder a guessed selector as a confident one.
-3. **Lands as a draft.** The result is created as an unpublished guide carrying its
-   flags. It appears in the Studio hub; you resolve the flags on the live page, sign off
-   (the publish attestation), and publish. The publish gate blocks on any open flag.
+3. **Lands as an unpublished draft.** The result is created as an unpublished guide
+   carrying its `needs_review` flags. Generation itself is free, and so is the review
+   path: open the guide's JSON, resolve each flag by hand (confirm the anchor on the live
+   screen, fix or delete the guessed selector), re-run `php artisan splain:check --strict`
+   until it passes clean, then flip the guide's status to published. Drafts never reach
+   real users (`serve_drafts` ships `false`), so nothing you draft goes live until you
+   publish it.
+
+   The visual side of this — the Studio hub (Splain's guide-management screen), resolving
+   flags in a review inbox, and the governed named-human **attested publish** sign-off (a
+   recorded sign-off where a named human takes responsibility that the guide reflects how
+   the work is really done) — lives in **splain/pro** (a separate, proprietary package). Generation does not require it; the by-hand path above
+   is the free equivalent.
 
 ## Usage
 

@@ -1,4 +1,4 @@
-<!-- synced from splain@4028e58 docs/authoring.md — edit THERE, then re-run bin/sync-docs.sh -->
+<!-- synced from splain@78003f2 docs/authoring.md — edit THERE, then re-run bin/sync-docs.sh -->
 
 # Hand-authoring guides (no Studio required)
 
@@ -11,7 +11,8 @@ The app's buttons show what's *possible*. A guide has to describe what's *actual
 — and those aren't always the same thing. This is the one mistake `splain:check` can't
 catch for you, because it's about your business, not your code.
 
-The classic trap: a resource has a **Create** button, so it's natural to write *"click
+The classic trap: a resource (in Filament, the pages that create/list/edit one kind
+of record, e.g. Employees) has a **Create** button, so it's natural to write *"click
 New Employee to add an employee."* The button works — but if employees really arrive
 through a hiring and onboarding pipeline, that guide is confidently teaching a workflow
 that doesn't exist. It plays perfectly and misleads every user.
@@ -19,18 +20,25 @@ that doesn't exist. It plays perfectly and misleads every user.
 `splain:check` proves a guide is well-formed and that its anchors resolve; it cannot
 know whether the steps match how your team actually works — only a person who knows the
 process can. So before you publish, ask of every step: *is this how the task is really
-done here, or just a path the interface allows?* That question is exactly what the
-publish sign-off makes you attest to — hold yourself to it.
+done here, or just a path the interface allows?* Reviewing your drafts before use
+is free — a guide's draft/published status controls visibility, and you preview
+through the gate. (Attested publish — before a guide goes live, Splain requires a
+named person to sign off that it reflects how the work is really done — is a
+splain/pro feature, a separate, proprietary package.) Either way, hold yourself
+to that question.
 
-The trap is sharpest for AI-drafted guides: a model reads the Create button with zero
+The trap is sharpest for AI-drafted guides (Splain can generate first drafts from your
+code — see [generation.md](generation.md)): a model reads the Create button with zero
 business context and writes the fiction with total confidence. That's why generated
-guides land as drafts you must review and sign off — the human gate is the only thing
-that catches a plausible-but-wrong workflow.
+guides land as drafts you must review before use — the human gate is the only thing
+that catches a plausible-but-wrong workflow. (The named-human attested sign-off that
+formalizes that gate lives in splain/pro, the separate proprietary package.)
 
 ## The minimal guide
 
-A playable guide needs a slug, a title, one span (which page it covers), and steps.
-A playable **step** needs only what you see here:
+A span is Splain's word for one page (or code area) a guide covers. A playable guide
+needs a slug, a title, one span, and steps. A playable **step** needs only what you
+see here:
 
 ```json
 {
@@ -56,13 +64,15 @@ A playable **step** needs only what you see here:
 
 That's it. `order` is display position; `key` is the stable name other steps point
 at; `span_ref` names which span (page) the step plays on; `anchor.selector` is what
-gets spotlighted, and `component_name` is what humans call it. Everything else in
+gets spotlighted (Splain dims the page and cuts a lit hole around the element it
+points at), and `component_name` is what humans call it. Everything else in
 the schema — decision options, popover sides, action steps, privacy masks, review
 flags — is **optional enrichment**; add it when you need it, never before.
 
 ## Anchors: how to pick a selector without pain
 
-Best: add a marker to your own Blade/Filament code and point at it —
+Best: add a marker to your own Blade (Laravel's HTML templating) or Filament code and
+point at it —
 
 ```php
 ->extraAttributes(['data-splain' => 'widget-approve'])   // on the component
@@ -112,8 +122,10 @@ php artisan splain:introspect --json            # machine-readable, all resource
 
 Copy the routes into your guide's `spans`, and anchor steps to the listed
 selectors. If a resource has no markers yet, that's your cue to add
-`->extraAttributes(['data-splain' => '…'])` (see the naming grammar above) or use
-design mode's picker.
+`->extraAttributes(['data-splain' => '…'])` (see the naming grammar above) — the
+primary, free way to author. (Design mode's element picker, which writes the same
+`data-splain` markers for you, is part of the Studio in splain/pro, the separate
+proprietary package.)
 
 ## Finding what to write next: `splain:suggest`
 

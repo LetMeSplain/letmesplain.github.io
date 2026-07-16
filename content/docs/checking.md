@@ -1,4 +1,4 @@
-<!-- synced from splain@4028e58 docs/checking.md — edit THERE, then re-run bin/sync-docs.sh -->
+<!-- synced from splain@78003f2 docs/checking.md — edit THERE, then re-run bin/sync-docs.sh -->
 
 # Checking guides (`splain:check`)
 
@@ -36,11 +36,13 @@ INFO  splain-studio-hub-tour.v1.json: OK
   flagged for review, a value that silently falls back to a default. Warnings
   alone still exit 0 — *unless* you pass `--strict`.
 
-`--strict` is the publish bar. Run it in CI or before you publish: nothing
+`--strict` is a free CI gate. Run it in CI or before you publish: nothing
 with an outstanding review flag or silent-fallback reliance gets through. This
 matters most on production hosts that set `splain.playback.serve_drafts` to
 `false` — passing `splain:check --strict` is the "this guide was reviewed"
-signal.
+signal. (It gates *toward* publish; the governed named-human attested publish it
+gates toward is a splain/pro feature — the separate proprietary package. Free
+publishing is the plain draft→published status flip.)
 
 A real run against the fixture shipped in this repo:
 
@@ -132,5 +134,7 @@ a security control. Masked data is hidden visually but remains in the page.
 ## When you're done
 
 Zero errors means the guide plays. Zero warnings under `--strict` means it's
-reviewed and publishable. Then seed it into the `splain_guides` table and the
+reviewed and ready to publish — in the free package, flip its status from draft
+to published (the named-human attested sign-off is a splain/pro feature, the
+separate proprietary package). Then seed it into the `splain_guides` table and the
 helper dot appears on the pages it covers.

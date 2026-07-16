@@ -1,4 +1,4 @@
-<!-- synced from splain@4028e58 docs/playback.md — edit THERE, then re-run bin/sync-docs.sh -->
+<!-- synced from splain@78003f2 docs/playback.md — edit THERE, then re-run bin/sync-docs.sh -->
 
 # Playback: what your users see
 
@@ -127,4 +127,5 @@ One caveat worth knowing: on a phone, Filament's sidebar is an overlay. If a use
 opens a guide while that overlay is open, the sidebar can sit inside the spotlight
 cutout and look un-dimmed on top of the highlighted element. In practice the tap
 path that opens the launcher usually has the sidebar closed; if your users report
-it, tell them to close the menu first — a future adapter nicety may auto-close it.
+it, tell them to close the menu first — a future adapter (Splain's per-framework
+integration layer) nicety may auto-close it.

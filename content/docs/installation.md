@@ -1,10 +1,12 @@
-<!-- synced from splain@4028e58 docs/installation.md — edit THERE, then re-run bin/sync-docs.sh -->
+<!-- synced from splain@78003f2 docs/installation.md — edit THERE, then re-run bin/sync-docs.sh -->
 
 # Installing Splain
 
-Splain adds a small helper dot to your Filament pages. Clicking it opens guided
-walkthroughs and page tours that live in your own database. This page gets you from
-`composer require` to a working helper dot, and explains every switch you can flip.
+Splain is an add-on for Filament (the admin-panel toolkit for Laravel/PHP apps). It
+adds a small helper dot to your admin pages — guided, code-anchored walkthroughs and
+page tours that live in your own database, so your in-app help can't silently go out
+of date. This page gets you from `composer require` to a working helper dot, and
+explains every switch you can flip.
 
 **Requirements:** PHP 8.3+, Laravel 11–13, Filament 3.2+ **or** Filament 4.x (both majors tested in CI on every push), Livewire 3.
 
@@ -38,36 +40,24 @@ default, and when it's on it stores a pointer to your user, never a copy of
 personal data (see [progress.md](progress.md)). The migrations load
 automatically — there is nothing to publish first.
 
-## 3. Register the plugins on your panels
+## 3. Register the plugin on your panels
 
-Splain is two plugins with two jobs:
-
-- **`SplainPlugin`** is playback — the helper dot your users see. Add it to every
-  panel where guides should play.
-- **`StudioPlugin`** is the editing side. Add it to panels where your guide editors
-  work, and call `->hub()` on the **one** panel that should host the guide
-  management pages (the list of all guides, with view and publish actions).
+`SplainPlugin` is playback — the helper dot your users see. Add it to every
+panel where guides should play.
 
 ```php
 use Splain\Filament\SplainPlugin;
-use Splain\Studio\StudioPlugin;
 
-// Your admin panel — playback plus the Studio hub:
 $panel->plugins([
     SplainPlugin::make(),
-    StudioPlugin::make()->hub(),
-]);
-
-// Any other panel — playback, and on-page editing for people who pass the gates:
-$panel->plugins([
-    SplainPlugin::make(),
-    StudioPlugin::make(),
 ]);
 ```
 
-Registering `StudioPlugin` widely is safe: everything it renders is
-permission-checked on the server, so users who aren't allowed to edit see nothing
-extra at all.
+That's the whole base install — the helper dot plays your published guides on
+every panel where you register it. (Guides are authored as JSON and validated
+with `splain:check`; the Studio — Splain's built-in visual, point-and-click editor
+for creating and editing guides inside your app — is a separate Pro package, see
+[Splain Pro (optional)](#splain-pro-optional) below.)
 
 ## 4. Publish the assets
 
@@ -131,8 +121,12 @@ Fail-safe by default: draft guides play **only** for people who pass the
 the gate falls back to the Studio's umbrella gate, and in `local` environments
 any authenticated user passes). Set `SPLAIN_SERVE_DRAFTS=true` only in throwaway
 dev environments where drafts should reach everyone — never in production, since
-walkthroughs guide users through real actions on real data. Only published
-guides (which pass the attested publish gate) reach users.
+walkthroughs guide users through real actions on real data. In the free package a
+guide's **published status** controls who sees it: with `serve_drafts` off (the
+default), only guides you've flipped to published reach real users, and drafts
+stay preview-only. Flipping that status is the free publish. The governed,
+named-human **attested publish** sign-off of record is a separate Pro gate
+(splain/pro — proprietary).
 
 ### `privacy.masks` (default: `[]`)
 
@@ -153,10 +147,54 @@ security control. Masked content is hidden visually but remains in the page's HT
 and accessibility tree — anyone with browser dev tools can read it. Never rely on
 it to keep data from the person at the keyboard.
 
-## Who can use the Studio (gates)
+## Splain Pro (optional)
 
-Splain ships **no roles or permissions of its own** — your app already has those.
-Instead it asks Laravel gates that *you* define. If you define nothing:
+Everything above is the complete free package (splain/splain, Apache-2.0):
+playback, `splain:check`, Privacy Mode, guides-as-code, AI generation, and the
+published-status publish. You never need anything else to ship guides.
+
+**Splain Pro** (splain/pro — a separate, private, proprietary package) adds the
+visual on-page **Studio** (the element picker and review inbox), the **Hub**
+(Filament resources — the pages that create/list/edit one kind of record, e.g.
+Employees — for non-dev guide management), track **assignment**,
+onboarding-completion **reporting**, and the governed **attested publish**. To
+install it:
+
+```bash
+composer require splain/pro
+```
+
+Then register `StudioPlugin` alongside the free `SplainPlugin`. Add
+`StudioPlugin::make()` to panels where your guide editors work, and call
+`->hub()` on the **one** panel that should host the guide management pages:
+
+```php
+use Splain\Filament\SplainPlugin;
+use Splain\Studio\StudioPlugin;
+
+// Your admin panel — free playback plus the Pro Studio hub:
+$panel->plugins([
+    SplainPlugin::make(),
+    StudioPlugin::make()->hub(),
+]);
+
+// Any other panel — playback, and on-page editing for people who pass the gates:
+$panel->plugins([
+    SplainPlugin::make(),
+    StudioPlugin::make(),
+]);
+```
+
+Registering `StudioPlugin` widely is safe: everything it renders is
+permission-checked on the server, so users who aren't allowed to edit see nothing
+extra at all.
+
+### Who can use the Studio (gates)
+
+The Studio (a splain/pro feature) ships **no roles or permissions of its own** —
+your app already has those. Instead it asks Laravel gates that *you* define (a gate
+is Laravel's built-in yes/no permission check — a small function returning whether a
+user may do something). If you define nothing:
 
 - **`local` environment: everyone is allowed** (so a fresh dev install works with
   zero setup),
@@ -164,7 +202,11 @@ Instead it asks Laravel gates that *you* define. If you define nothing:
 
 So on production, nobody can touch the Studio until you define a gate.
 
-### The umbrella gate
+The model is two layers: grant everything with one broad "umbrella" gate, then
+override single abilities with narrower gates. A narrower gate, when you define one,
+always wins over the umbrella for that one ability.
+
+#### The umbrella gate
 
 One gate to grant everything Studio-related:
 
@@ -175,7 +217,7 @@ use Illuminate\Support\Facades\Gate;
 Gate::define('splain.manage-guides', fn ($user) => $user->hasRole('admin'));
 ```
 
-### Splitting off single abilities
+#### Splitting off single abilities
 
 Every Studio action first checks its own, more specific gate and only falls back
 to the umbrella if you haven't defined one. The specific gates that exist today:
@@ -209,8 +251,10 @@ One command checks the whole installation: tables migrated, published assets pre
 AND fresh (the classic trap after updating the package — a stale `public/` copy makes
 the UI half-work), the plugin registered on a panel, every guide passing `splain:check`,
 and config states worth knowing about (drafts served in production, half-configured
-generation, per-person reporting). Exit code is non-zero only for real breakage, so
-it's safe in a deploy pipeline.
+generation, and misconfigured server-side progress). The free doctor flags your
+opt-in progress config; per-person and onboarding-completion **reporting** on top
+of that data is a splain/pro capability. Exit code is non-zero only for real
+breakage, so it's safe in a deploy pipeline.
 
 ## Content-Security-Policy (strict-CSP hosts)
 

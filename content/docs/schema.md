@@ -1,4 +1,4 @@
-<!-- synced from splain@4028e58 docs/schema.md — edit THERE, then re-run bin/sync-docs.sh -->
+<!-- synced from splain@78003f2 docs/schema.md — edit THERE, then re-run bin/sync-docs.sh -->
 
 # The guide JSON, field by field
 
@@ -40,9 +40,10 @@ absent" on the page, never to an error on your app.
 - `steps` *(required, playback)* — the steps themselves.
 - `workflow_summary` *(optional, notes)* — long prose describing the whole
   workflow as traced from the code. The Studio displays it; playback never does.
-- `honest_limits` *(optional, notes)* — a list of plain-language caveats: what
-  the author could not verify, selectors that are guesses, behavior that
-  depends on live data. Keep it; it is the guide's conscience.
+- `honest_limits` *(optional, notes)* — caveats the author couldn't verify;
+  playback never shows it. A list of plain-language notes: what the author could
+  not confirm, selectors that are guesses, behavior that depends on live data.
+  Keep it; it is the guide's conscience.
 - `schema_version` *(optional, notes)* — a format stamp in the fixture files
   (`1` today). Nothing reads it yet.
 
@@ -77,8 +78,8 @@ A span names one place the guide touches:
 
 ## Steps
 
-Marked required below is what `splain:check` enforces; in practice every step
-also wants `order`, `title`, and `instruction` (they default to blank, which
+`splain:check` only fails if `key`, `span_ref`, or `anchor` are missing; a useful
+step also needs `order`, `title`, and `instruction` (they default to blank, which
 plays but says nothing).
 
 - `order` *(playback)* — display position, an integer. Steps play in ascending
@@ -124,8 +125,10 @@ plays but says nothing).
   reveals the engine can't infer (a dropdown item that opens a modal).
 - `needs_review` *(optional, notes + gate)* — a list of plain-language reasons
   a human still needs to verify this step on a live screen. Each reason is a
-  checker warning, so `splain:check --strict` (the publish bar) fails until
-  someone resolves them — the Studio has a review queue for exactly that.
+  checker warning, so `splain:check --strict` fails until someone resolves them.
+  The free path is resolving each `needs_review` by hand and re-running
+  `splain:check --strict`; the Studio's review queue (splain/pro, the separate
+  proprietary package) is a convenience over that same discipline.
 - `pii_risk` *(mixed)* — the step's sensitive-data record. Own section below.
 - Everything else is **(notes)**: `screen` (which screen the step lives on),
   `status_effect` (what really changes in the database — shown to users only
@@ -147,8 +150,9 @@ plays but says nothing).
 ```
 
 - `selector` *(required, playback)* — machine code: the CSS selector of the
-  element to spotlight. You never have to read these once written; the Studio
-  picks them for you.
+  element to spotlight. Free authors write these by hand (with `splain:introspect`
+  and `splain:suggest` to surface the right markers); having the Studio pick them
+  for you is a convenience in splain/pro (the separate proprietary package).
 - `component_name` *(recommended, playback)* — the human name of that element
   ("the Start Review button"). The Studio shows this instead of the selector.
 - `fallback_selectors` *(optional, playback)* — tried in order when the main

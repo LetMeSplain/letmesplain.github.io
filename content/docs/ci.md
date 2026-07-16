@@ -1,10 +1,14 @@
-<!-- synced from splain@4028e58 docs/ci.md — edit THERE, then re-run bin/sync-docs.sh -->
+<!-- synced from splain@78003f2 docs/ci.md — edit THERE, then re-run bin/sync-docs.sh -->
 
 # CI: guides that can't silently rot
 
+*Catch guides that break when your UI changes — in CI (your CI: the automated checks that
+run before you merge code), before users see them.*
+
 A walkthrough breaks the same way documentation breaks — quietly. Someone renames a
 button, ships it, and three weeks later a user hits a tour that points at nothing. The
-whole promise of code-anchored guidance is that this is *catchable*, in CI, before the
+whole promise of guidance that lives inside your app and is anchored to your code
+(in-perimeter, code-anchored guidance) is that this is *catchable*, in CI, before the
 user ever sees it. This is how.
 
 ## The gate
@@ -13,10 +17,11 @@ user ever sees it. This is how.
 php artisan splain:check --drift --strict
 ```
 
-`splain:check` has always validated a guide's **structure** (well-formed steps, reachable
-DAG). `--drift` adds the part that catches rot: it scans your code for the `data-splain`
-markers that actually exist right now, and **fails if any published guide anchors to a
-marker that's gone** — the exact break a refactor introduces.
+`splain:check` has always validated a guide's **structure** (every step is reachable and
+there are no loops). Drift = when your code changes so a guide no longer matches the real
+UI. `--drift` detects it: it scans your code for the `data-splain` markers that actually
+exist right now, and **fails if any published guide anchors to a marker that's gone** —
+the exact break a refactor introduces.
 
 Exit codes are the contract, so CI can trust them:
 
@@ -28,8 +33,9 @@ Exit codes are the contract, so CI can trust them:
 
 Drift only checks `[data-splain="…"]` markers — the anchors a code scan can verify.
 Structural selectors (`.fi-ta`, a bare id) can't be confirmed against source, so they're
-the human reviewer's job (the publish sign-off), not the gate's — same discipline as the
-generation flagger.
+the human reviewer's job, not the gate's — same discipline as the generation flagger.
+The free drift-gate stands on its own: it doesn't depend on the splain/pro attested
+sign-off — resolving `needs_review` by hand clears the warnings it gates on.
 
 ## Where the guides come from
 
@@ -56,9 +62,10 @@ php artisan splain:import database/splain/*.json     # a dir or a list of files
 ```
 
 `splain:import` validates each guide (a broken one is refused, not loaded), lands a **new**
-guide as a **draft** — only a human publishes it, through the sign-off attestation — and on
-re-import **refreshes an existing guide's content without demoting a published one**. So the
-whole loop is:
+guide as a **draft** (all free) — only a human publishes it, and in the free package that's
+the plain draft→published status flip (the governed named-human attested sign-off is a
+splain/pro feature, the separate proprietary package) — and on re-import **refreshes an
+existing guide's content without demoting a published one**. So the whole loop is:
 
 ```
 author (Studio/hand) → splain:export → git commit → CI: splain:check --drift → deploy: splain:import

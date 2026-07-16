@@ -1,11 +1,12 @@
-<!-- synced from splain@4028e58 docs/privacy-mode.md — edit THERE, then re-run bin/sync-docs.sh -->
+<!-- synced from splain@78003f2 docs/privacy-mode.md — edit THERE, then re-run bin/sync-docs.sh -->
 
 # Privacy Mode (the eye toggle)
 
 Privacy Mode blurs or covers the sensitive parts of a page — name columns, ID
 scans, filled-in forms — so you can give a demo or record your screen without
-showing real data. Open the helper dot's menu and click the **eye icon** in the
-header. Click it again to turn it off. The eye only appears on pages that
+showing real data. Open the helper dot's menu — the helper dot is the small floating
+launcher Splain adds to your page (it's live in the corner of this very page — click it) —
+and click the **eye icon** in the header. Click it again to turn it off. The eye only appears on pages that
 actually have flagged regions.
 
 While it's on, every flagged region stays masked for the rest of your browser
@@ -42,7 +43,8 @@ is flagged twice with different modes, the stronger one (block) wins.
 ## How guides flag regions
 
 Any step can carry a `pii_risk.mask_selectors` list — pairs of a selector (the
-machine address of a page region, same idea as step anchors — see
+machine address of a page region, same idea as a step anchor: how a guide points at a
+specific on-page element, usually a `data-splain` marker you place in your code — see
 [authoring.md](authoring.md)) and a mode. From the applicant-review guide:
 
 ```json

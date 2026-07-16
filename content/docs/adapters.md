@@ -1,6 +1,10 @@
-<!-- synced from splain@4028e58 docs/adapters.md — edit THERE, then re-run bin/sync-docs.sh -->
+<!-- synced from splain@78003f2 docs/adapters.md — edit THERE, then re-run bin/sync-docs.sh -->
 
 # Splain adapters — architecture & expansion
+
+*This page is for developers extending Splain to a non-Filament stack; it assumes you
+already know what Splain does. An adapter is Splain's per-framework integration layer —
+the standalone adapter runs the real engine on a plain page.*
 
 Splain is built as a **framework-agnostic engine with thin adapters**, so it can
 grow from "Filament plugin" to "guidance for anything a Laravel shop ships" without
@@ -53,6 +57,9 @@ the host's own design system (the Filament adapter wears Filament's compiled CSS
 
 **3. Asset delivery** — serve `splain.js` + `splain.css`. Filament uses
 `FilamentAsset`; another adapter can ship a Vite entry or a plain `<script>`.
+An adapter's job is *playback*, which is the free package (`splain/splain`); the
+Studio (visual authoring) is a separate concern shipped in splain/pro (the
+separate proprietary package) and is not something an adapter re-implements.
 
 **4. The SPA navigation signal** — the engine's only lifecycle coupling, and it is
 **framework-neutral**. It binds two abstract signals:
@@ -78,12 +85,14 @@ boots on load.
 
 | Adapter | Status | Notes |
 |---|---|---|
-| **Filament v3** | shipped | the reference adapter; playback + Studio |
-| **Filament v4** | **shipped + verified (playback AND Studio hub)** | Constraint `^3.2 \|\| ^4.0`, CI runs the full suite on BOTH majors. Verified on a fresh Laravel 13 + Filament v4.11 app: install, all splain:* commands, in-browser playback, and the FULL Studio hub (guide inventory, track builder with ordered-guides repeater + assignment manager, onboarding report). The hub is version-split — `SplainStudioHubV3`/`V4` roots outside composer's autoload (a runtime prefix autoloader in StudioServiceProvider), selected by installed major in StudioPlugin — because v4's Schema unification made v3's `form(Form)`/`infolist(Infolist)` signatures unloadable under v4 and vice versa. |
+| **Filament v3** | shipped | the reference adapter; free playback (`splain/splain`) + the Studio from splain/pro (the separate proprietary package) |
+| **Filament v4** | **shipped + verified (playback AND Studio hub)** | Constraint `^3.2 \|\| ^4.0`, CI runs the full suite on BOTH majors. Verified on a fresh Laravel 13 + Filament v4.11 app: install, all splain:* commands, in-browser playback, and the FULL Studio hub (guide inventory, track builder with ordered-guides repeater + assignment manager, onboarding report). The hub is version-split — see the note below.[^v4split] |
 | **Filament v5** | not yet | exists (5.x); deliberately outside the constraint until v4 is fully served. |
-| **pure TypeScript / standalone** | **shipped (v0.1, reference)** | Splain with no Filament and no PHP: `resources/dist/standalone.js` renders the launcher/checklist chrome (neutral skin) from a payload object and boots the engine. **Browser-verified end-to-end** (launcher, checklist, tour, walkthrough spotlight, and decision branching) on a plain HTML page with `window.Livewire`/`window.filament` both `undefined`. See below + `examples/standalone/`. The Studio (authoring) stays a separate Laravel-side concern. |
+| **pure TypeScript / standalone** | **shipped (v0.1, reference)** | Splain with no Filament and no PHP: `resources/dist/standalone.js` renders the launcher/checklist chrome (neutral skin) from a payload object and boots the engine. **Browser-verified end-to-end** (launcher, checklist, tour, walkthrough spotlight, and decision branching) on a plain HTML page with `window.Livewire`/`window.filament` both `undefined`. See below + `examples/standalone/`. This is all free playback; the Studio (authoring) is a separate Laravel-side concern that ships in splain/pro (the separate proprietary package). |
 | **Livewire without Filament** | designed | same engine; the adapter renders the launcher in the host's own Blade/Livewire components. Livewire events already drive it. |
 | **Inertia / Vue, plain Blade** | designed | dispatch `splain:navigated` from the router's after-navigate hook; render the launcher as a Vue component / Blade partial. |
+
+[^v4split]: Why the hub is version-split: `SplainStudioHubV3`/`V4` roots live outside composer's autoload (a runtime prefix autoloader in StudioServiceProvider), selected by installed major in StudioPlugin — because v4's Schema unification made v3's `form(Form)`/`infolist(Infolist)` signatures unloadable under v4 and vice versa.
 
 **Guiding principle:** keep **Laravel at the core** first — it's where the
 depth and the daily proving happens — but design every seam so that *anything* a Laravel shop

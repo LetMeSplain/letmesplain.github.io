@@ -1,6 +1,10 @@
-<!-- synced from splain@4028e58 docs/progress.md — edit THERE, then re-run bin/sync-docs.sh -->
+<!-- synced from splain@78003f2 docs/progress.md — edit THERE, then re-run bin/sync-docs.sh -->
 
 # Server-side progress — what is stored about your users
+
+Splain shows your users interactive on-screen walkthroughs of your app; a guide is one
+such walkthrough. When a user finishes one of your walkthroughs (a guide), Splain can
+optionally record that completion. This page is about where — if anywhere — that fact is kept.
 
 By default, Splain records **nothing** on your server about who completed what —
 completion lives only in each user's browser. A host can turn on server-side progress
@@ -72,4 +76,5 @@ wording as a lawyer-review item, like the publish attestation.
 
 ## Nothing leaves your perimeter
 
-Recording is a local database write. Progress data never leaves your app.
+Recording is a local database write. Progress data never leaves your own servers (your
+perimeter — Splain runs entirely on your infrastructure; nothing phones home).

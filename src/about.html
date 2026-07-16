@@ -46,18 +46,23 @@
         that breaks the first time the interface changes and nobody notices for months.
     </p>
     <p>
+        Splain adds in-app, code-anchored walkthroughs to Laravel (the PHP web framework)
+        and its Filament admin panels (the admin-panel framework for Laravel) — guidance
+        that can't silently go out of date.
+    </p>
+    <p>
         Splain was built on a different bet: <strong>guidance belongs inside the app,
         anchored to the code, and the build should fail when the two drift apart.</strong>
         A guide's steps name real elements with exact selectors. A checker replays every
         guide against every page before anything ships. If a refactor deletes an anchor
-        a guide depends on, your CI goes red — the walkthrough can't silently rot into
-        a lie.
+        a guide depends on, your CI (the automated checks that run before you merge code)
+        goes red — the walkthrough can't silently rot into a lie.
     </p>
 
     <h2>The proving ground</h2>
     <p>
         Splain has been a standalone package from day one — and it grew up against a
-        deliberately hard test bed: a live staffing platform with real workflows,
+        live staffing platform we build and run ourselves, with real workflows,
         real privacy stakes, and real users. That environment set the bar
         for everything on this site:
     </p>
@@ -65,14 +70,14 @@
         <li>Walkthroughs had to survive modals, confirmation dialogs, dropdown menus,
             failed validations, and multi-page journeys — because the real workflows
             used all of them.</li>
-        <li>Privacy Mode exists because recording a tutorial over real records is
-            unacceptable — and it is honestly scoped as a presentation aid, because
+        <li>Privacy Mode masks real records on screen while you record a tutorial —
+            honestly scoped as a presentation aid, not a security guarantee, because
             calling it more would be a lie.</li>
-        <li>The publishing gate demands a named human sign-off that a guide describes
-            how work is <em>really</em> done — because the interface allowing an action
-            is not the same as that being the workflow. (Staff aren't added by clicking
-            "New" — they arrive through hiring. A guide that says otherwise is worse
-            than no guide.)</li>
+        <li>Before a guide can be published, Splain requires a named person to sign off
+            that it reflects how the work is <em>really</em> done. Staff aren't added by
+            clicking "New" — they arrive through hiring; a guide that says otherwise is
+            worse than no guide. The interface allowing an action is not the same as that
+            being the workflow.</li>
     </ul>
 
     <figure class="shot" style="margin:1.8rem 0;">
@@ -86,11 +91,10 @@
 
     <h2>The recursion</h2>
     <p data-splain="recursion">
-        The Studio's own test suite drives a Splain tour of the Studio itself. The
-        docs on this site tour themselves. The dot in the corner of this page is the
-        real playback engine, running the shipped free-tier bundle. We couldn't help
-        it — and it keeps us honest: if the product can't explain itself, why would
-        you trust it to explain yours?
+        The dot in the corner of <em>this page</em> is the real playback engine — the
+        actual Splain player that ships in the product, not a mockup. Click it. The docs on this site tour
+        themselves, too. We couldn't help it, and it keeps us honest: if the product
+        can't explain itself, why would you trust it to explain yours?
     </p>
 
     <h2>The rule that governs everything</h2>
@@ -139,7 +143,7 @@
                   instruction: 'Splain earned every claim on this site against a live staffing platform — the receipts below are what that bought.',
                   selector: '[data-splain="proving-ground"]', next: 'recursion' },
                 { key: 'recursion', kind: 'instruction', playback: 'direct', title: 'Yes, really',
-                  instruction: 'This popover is the shipped free-tier bundle, mounted through the standalone adapter — the same engine a host app runs.',
+                  instruction: 'This popover is the same Splain player that runs inside a real app — here it is running on a plain web page to prove it is the real thing.',
                   selector: '[data-splain="recursion"]' },
             ],
         }],

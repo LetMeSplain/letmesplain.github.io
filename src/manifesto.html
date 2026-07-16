@@ -59,6 +59,12 @@
     </p>
 
     <p>
+        First, plainly: Splain is a self-hosted tool developers add to their
+        Laravel/Filament web app — it turns product help into guided, code-anchored,
+        in-app walkthroughs that can't silently go out of date.
+    </p>
+
+    <p>
         <b>It costs a week to write.</b> Someone sits down and hand-authors a knowledge
         base — every step, every screenshot, every "now click the blue button" — for a
         UI they're looking at right now and will change next sprint. Then a new hire
@@ -86,7 +92,7 @@
             <h2>It should draft itself from your code.</h2>
             <p>Your app already knows what it does — its routes, its components, its forms
             describe it. Splain reads that and writes the <b>first draft</b> of the
-            walkthrough. You refine it in a visual studio; you don't stare at a blank page
+            walkthrough. You refine it — in your editor, or visually in the Pro Studio (a visual, point-and-click editor for your guides) — instead of staring at a blank page
             authoring steps you'll rewrite next release. The knowledge base, the tutorials,
             the help articles you'd normally sink days into — they start themselves, and
             arrive as something a user can actually follow instead of an article they have
@@ -94,17 +100,18 @@
         </li>
         <li>
             <h2>It must be anchored to the code, or it rots.</h2>
-            <p>Every step names a real element with an exact selector, and a checker
-            replays every guide against every page before anything ships. Delete an element
+            <p>Each step is tied to a specific button or field on the page, and an
+            automatic check re-runs every guide against your app whenever you build it.
+            Delete an element
             a guide depends on, and the build goes <b>red</b> — the same way a broken test
             does. Guidance that can lie silently isn't guidance; it's a liability with good
             SEO.</p>
         </li>
         <li>
-            <h2>It stays inside your perimeter.</h2>
+            <h2>It runs entirely on your own servers.</h2>
             <p>Self-hosted, running in your own app. Your users' screens are yours — no
-            third-party script in the loop, nothing phoning home. Privacy Mode blurs
-            sensitive data for demos and screen-shares; it's a presentation aid, and we say
+            third-party script in the loop, nothing phoning home. A built-in Privacy Mode
+            blurs sensitive data for demos and screen-shares; it's a presentation aid, and we say
             exactly that. It is not a security control, and calling it one would be the kind
             of lie this whole product exists to prevent.</p>
         </li>
@@ -121,12 +128,13 @@
     <p>
         Guidance that's created from your app, delivered inside your app, and fails your
         build the day it stops being true. Cheaper to make, closer to the user, impossible
-        to silently rot. That's the whole idea — and the dot in the corner of this page is
-        the shipped engine proving it can explain even itself.
+        to silently rot. That's the whole idea — and the glowing dot in the bottom corner
+        is Splain itself running on this page — click it to watch the manifesto explain
+        itself.
     </p>
 
     <p style="margin-top:2.5rem;">
-        <a class="btn btn-torch" href="./">See it explain itself</a>
+        <a class="btn btn-torch" href="./">Watch Splain explain a real app</a>
         <a class="btn btn-quiet" href="docs/" style="margin-left:0.6rem;">Read the manual</a>
     </p>
 
@@ -161,7 +169,7 @@
                   instruction: 'Five tenets: on the live page, drafted from your code, anchored so it can’t rot, in your perimeter, honest about its limits.',
                   selector: '[data-splain="tenets"]', popover_side: 'top', next: 'close' },
                 { key: 'close', kind: 'instruction', playback: 'direct', title: 'And this popover?',
-                  instruction: 'It’s the shipped free-tier engine, mounted through the standalone adapter — the same bundle a host app runs. The manifesto explaining itself.',
+                  instruction: 'This is the real Splain, running on this page the same way it would inside any app that installs it. The manifesto explaining itself.',
                   selector: '[data-splain="manifesto-close"]' },
             ],
         }],

@@ -120,6 +120,28 @@ section { padding: 4.5rem 0; border-bottom: 1px solid var(--line); }
 }
 .honest b { color: var(--torch); font-weight: 600; }
 
+/* ── Dogfood proof quote (first-party testimonial) ─────────────────────── */
+
+.proof-quote {
+    margin: 2.1rem 0 0;
+    max-width: 46rem;
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--torch);
+    border-radius: 0 0.5rem 0.5rem 0;
+    background: var(--panel);
+    padding: 1.35rem 1.6rem;
+}
+.proof-quote .lead {
+    display: block;
+    font-family: var(--serif);
+    font-size: 1.16rem;
+    color: var(--torch);
+    margin-bottom: 0.7rem;
+}
+.proof-quote p { margin: 0; color: var(--ink); font-size: 1rem; line-height: 1.62; }
+.proof-quote strong { color: var(--check); font-weight: 600; }
+.proof-quote cite { display: block; margin-top: 0.95rem; font-style: normal; font-size: 0.85rem; color: var(--muted); }
+
 /* ── Hero ──────────────────────────────────────────────────────────────── */
 
 /* Longhand on purpose: shorthand would clobber .wrap's horizontal padding. */
