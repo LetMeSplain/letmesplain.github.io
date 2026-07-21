@@ -1,4 +1,4 @@
-<!-- synced from splain@78003f2 docs/playback.md — edit THERE, then re-run bin/sync-docs.sh -->
+<!-- synced from splain@a738cf8 docs/playback.md — edit THERE, then re-run bin/sync-docs.sh -->
 
 # Playback: what your users see
 
@@ -49,8 +49,8 @@ completing it. A tour is just a look around; there's nothing to abandon halfway.
 
 A walkthrough is different, and this matters: **it performs no actions for you, and
 it fakes nothing — you do the real thing, on live data, while it points.** When the
-"Review & approve an applicant's documents" walkthrough highlights the *Start
-Review* button and you click it, a real submission is claimed under your name. When
+"Review & approve a submitted document" walkthrough highlights the *Start
+Review* button and you click it, a real document is claimed under your name. When
 it highlights *Accept*, the document really becomes Accepted. Splain only watches;
 your app's own buttons do what they always do.
 
@@ -80,9 +80,9 @@ Walkthroughs show no "Step x of y" counter — with branches, that number would 
 
 ## Crossing pages
 
-Some tasks span pages: approve documents on one, activate the person on another. The
+Some tasks span pages: approve a document on one, update the record on another. The
 walkthrough ends a page's portion by spotlighting the real navigation link
-("Continue on the Applicants list") and telling you to click it. When you do, the
+("Continue on the Documents list") and telling you to click it. When you do, the
 page changes — and the walkthrough **resumes automatically** on the other side,
 starting at that page's first step. The resume note lives only in that browser tab
 and expires after about three minutes, and it's discarded if you end up somewhere

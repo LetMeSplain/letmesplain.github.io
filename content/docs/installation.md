@@ -1,4 +1,4 @@
-<!-- synced from splain@78003f2 docs/installation.md — edit THERE, then re-run bin/sync-docs.sh -->
+<!-- synced from splain@a738cf8 docs/installation.md — edit THERE, then re-run bin/sync-docs.sh -->
 
 # Installing Splain
 

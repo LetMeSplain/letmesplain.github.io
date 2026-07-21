@@ -1,4 +1,4 @@
-<!-- synced from splain@78003f2 docs/studio.md — edit THERE, then re-run bin/sync-docs.sh -->
+<!-- synced from splain@a738cf8 docs/studio.md — edit THERE, then re-run bin/sync-docs.sh -->
 
 # The Studio
 
@@ -98,7 +98,7 @@ Entry, today: add `?splain-studio=<guide-slug>` to the URL of a page the guide
 covers — optionally `:<step-key>` to jump straight to one step:
 
 ```
-/hr/submissions?splain-studio=hr-approve-applicant-documents:start-review
+/admin/documents?splain-studio=approve-a-document:start-review
 ```
 
 Or run `window.SplainStudio.open()` in the browser console. (Buttons in the hub

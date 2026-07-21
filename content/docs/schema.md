@@ -1,4 +1,4 @@
-<!-- synced from splain@78003f2 docs/schema.md — edit THERE, then re-run bin/sync-docs.sh -->
+<!-- synced from splain@a738cf8 docs/schema.md — edit THERE, then re-run bin/sync-docs.sh -->
 
 # The guide JSON, field by field
 
@@ -20,8 +20,8 @@ absent" on the page, never to an error on your app.
 
 ```json
 {
-  "slug": "hr-approve-applicant-documents",
-  "title": "Review & approve an applicant's documents",
+  "slug": "approve-a-document",
+  "title": "Review & approve a submitted document",
   "genre": "walkthrough",
   "spans": [ ... ],
   "steps": [ ... ]
@@ -59,18 +59,18 @@ on the row; nothing acts on it today.
 A span names one place the guide touches:
 
 ```json
-{ "resource": "SubmissionResource (Document Submissions review queue)",
+{ "resource": "DocumentResource (document review queue)",
   "role_in_workflow": "The review queue table ...",
-  "route": "/hr/submissions" }
+  "route": "/admin/documents" }
 ```
 
 - `resource` *(required, playback)* — the span's name; the exact string steps
   point at via `span_ref`.
 - `route` *(playback)* — the URL path of that page. A `{placeholder}` segment
-  matches any single real value: `/hr/applicants/{record}` covers
-  `/hr/applicants/7` but not the list page. Matching is exact-or-prefix on
-  whole segments — `/hr/submissions` also covers `/hr/submissions/3/edit`,
-  never `/hr/submissions-archive`.
+  matches any single real value: `/admin/documents/{record}` covers
+  `/admin/documents/7` but not the list page. Matching is exact-or-prefix on
+  whole segments — `/admin/documents` also covers `/admin/documents/3/edit`,
+  never `/admin/documents-archive`.
 - A span may have `"route": null` — that marks a service or background code
   area kept as context. **Steps must never attach to a route-less span**; the
   checker calls that an error because such steps can't play on any page.
@@ -92,6 +92,11 @@ plays but says nothing).
 - `key` *(required, playback)* — the step's stable name; must be unique in the
   guide. Everything that routes (`next`, option branches) points at keys.
 - `title`, `instruction` *(playback)* — the helper bubble's heading and body.
+  `instruction` supports a small, safe Markdown subset (`**bold**`, `` `code` ``,
+  `- ` bullet lists, line breaks; a blank line is a paragraph gap). It is
+  HTML-escaped first, so any tag-like text renders as literal characters, never
+  markup. `title` and labels are always plain text. See
+  [authoring.md](authoring.md#formatting-the-instruction-text).
 - `span_ref` *(required, playback)* — the `resource` string of a **routed**
   span; it decides which page the step plays on.
 - `anchor` *(required, playback)* — what gets spotlighted. Own section below.
@@ -120,9 +125,18 @@ plays but says nothing).
   open failed validation — the user is still on the step). Shape mirrors an
   anchor: `{ "selector": "...", "fallback_selectors": [...] }`. Honest scope
   reminder: this is a **real click on live data** — nothing is simulated.
+- `reveal` *(optional, playback)* — an ordered list of trigger selectors the engine
+  clicks (waiting for each) before it looks for this step's anchor, for an anchor that
+  only exists once a tab, a dropdown, or a modal is opened. Walkthrough-only. Handles
+  Livewire and Alpine tabs, teleported dropdowns, and modals, nesting included; the
+  chain is idempotent (a panel that's already open is skipped, not toggled shut). This
+  is the robust, self-driving way to reach a gated anchor — prefer it to `advance:
+  await-anchor` for dropdowns and modals. See [authoring.md](authoring.md).
 - `advance` *(optional, playback)* — only the value `"await-anchor"` means
-  anything: it forces "wait for the next step's anchor to appear" on layered
-  reveals the engine can't infer (a dropdown item that opens a modal).
+  anything: it parks the step until the next step's anchor appears after a real click.
+  Kept for genuine learn-by-doing gates; for a dropdown or modal prefer a `reveal`
+  chain (above), which drives the panel open itself instead of waiting on the user —
+  an `await-anchor` gate with nothing to open the panel simply stalls.
 - `needs_review` *(optional, notes + gate)* — a list of plain-language reasons
   a human still needs to verify this step on a live screen. Each reason is a
   checker warning, so `splain:check --strict` fails until someone resolves them.

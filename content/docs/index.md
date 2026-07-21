@@ -31,7 +31,9 @@ This manual is the same documentation that ships inside the package.
 - [CI & the drift gate](ci.md) — guides-as-code, and the build gate that fails when
   code deletes an anchor a guide depends on.
 - [Guide schema](schema.md) — the full JSON reference.
+- [Development log](devlog.md) — dated, newest-first record of what's changing and why
+  (the running companion to the capability [Changelog](changelog.md)).
 
-> **Release status:** Splain is not on Packagist yet — the license is being
-> finalized. These docs describe shipped, tested behavior; install today is via a
-> private repository for early-access hosts.
+> **Release status:** Splain is licensed **Apache-2.0** but not on Packagist yet.
+> These docs describe shipped, tested behavior; install today is via a private
+> repository for early-access hosts.

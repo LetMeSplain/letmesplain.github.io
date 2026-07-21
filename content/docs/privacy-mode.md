@@ -1,4 +1,4 @@
-<!-- synced from splain@78003f2 docs/privacy-mode.md — edit THERE, then re-run bin/sync-docs.sh -->
+<!-- synced from splain@a738cf8 docs/privacy-mode.md — edit THERE, then re-run bin/sync-docs.sh -->
 
 # Privacy Mode (the eye toggle)
 
@@ -45,7 +45,7 @@ is flagged twice with different modes, the stronger one (block) wins.
 Any step can carry a `pii_risk.mask_selectors` list — pairs of a selector (the
 machine address of a page region, same idea as a step anchor: how a guide points at a
 specific on-page element, usually a `data-splain` marker you place in your code — see
-[authoring.md](authoring.md)) and a mode. From the applicant-review guide:
+[authoring.md](authoring.md)) and a mode. From the document-review guide:
 
 ```json
 "pii_risk": {

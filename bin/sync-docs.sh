@@ -10,7 +10,7 @@ cd "$(dirname "$0")/.."
 PKG="${SPLAIN_REPO:-../splain}"
 SHA=$(git -C "$PKG" rev-parse --short HEAD)
 
-PAGES=(installation playback authoring checking privacy-mode studio progress generation adapters ci schema)
+PAGES=(installation playback authoring checking privacy-mode studio progress generation adapters ci schema devlog)
 
 for page in "${PAGES[@]}"; do
     {

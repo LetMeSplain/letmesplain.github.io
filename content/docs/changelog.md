@@ -1,4 +1,4 @@
-<!-- synced from splain@78003f2 CHANGELOG.md — edit THERE, then re-run bin/sync-docs.sh -->
+<!-- synced from splain@a738cf8 CHANGELOG.md — edit THERE, then re-run bin/sync-docs.sh -->
 
 # Changelog
 
@@ -15,6 +15,16 @@ integration 20+ — all run by CI on every push, across PHP 8.3/8.4 × Filament 
   real UI — decision branches, modal-scoped steps, completion controls (`advance_on`),
   cross-page hand-off with resume, and a diagnosability ring buffer
   (`window.Splain.log`).
+- Reveal-driven anchoring: when a step's target lives behind a tab, a row/action
+  dropdown, or a modal, the step lists the trigger(s) to open first and the engine
+  clicks its way in before spotlighting — server-rendered (Livewire) and client-side
+  (Alpine) panels alike, nesting included. The reveal chain is idempotent: a panel
+  that's already open is skipped rather than toggled shut.
+- Morph resilience: driver.js decorates the live DOM at runtime, so a Livewire
+  re-render (a poll, an event, a websocket reconnect) would otherwise strip the
+  spotlight mid-step. The engine re-asserts the current step's highlight after a
+  morph — on both tours and walkthroughs — so a guide can't silently go dark on a
+  re-rendering page.
 - Host-native skin: the launcher and popovers wear the host app's own Filament
   classes and palette (verified on three different design systems).
 - Privacy Mode: blur/block masks for demos and screen recordings — explicitly a
@@ -30,7 +40,10 @@ integration 20+ — all run by CI on every push, across PHP 8.3/8.4 × Filament 
 - `splain:check` — structural validation + review debt; `--strict` gates on warnings.
 - `splain:check --drift` — the "can't silently rot" CI gate: fails the build when a
   code change deletes/renames a `data-splain` marker any guide depends on (all
-  selector sites, compound selectors included). Recipe + GitHub Action in
+  selector sites, compound selectors included). When a marker is emitted dynamically
+  (interpolated into the template) a source scan can't confirm it, so instead of a
+  false "rotted" the gate stays strict but points the author at the fix — declare the
+  literal in the array feeding the template. Recipe + GitHub Action in
   `docs/ci.md` / `examples/ci/`.
 - Guides-as-code round trip: `splain:export` (canonical, byte-stable on any DB) and
   `splain:import` (validates, lands drafts, never demotes a published guide).
@@ -91,7 +104,8 @@ integration 20+ — all run by CI on every push, across PHP 8.3/8.4 × Filament 
   v3 app, a virgin v4 app, and the CI-driven workbench.
 
 ### Known limits (honest scope)
-- No public tag, no Packagist, no license chosen yet (`LICENSE.md`).
+- Licensed **Apache-2.0** (`LICENSE`), but no public tag and not on Packagist yet.
 - Filament v5 exists and is deliberately outside the supported constraint for now.
-- Drift-checking verifies literal markers only (interpolated markers documented).
+- Drift-checking verifies literal markers; an interpolated marker gets an actionable
+  "declare the literal" hint rather than a silent pass or a false failure.
 - No third-party production adopter yet — the fresh-app installs are the closest proxy.

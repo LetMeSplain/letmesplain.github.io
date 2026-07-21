@@ -1,4 +1,4 @@
-<!-- synced from splain@78003f2 docs/authoring.md — edit THERE, then re-run bin/sync-docs.sh -->
+<!-- synced from splain@a738cf8 docs/authoring.md — edit THERE, then re-run bin/sync-docs.sh -->
 
 # Hand-authoring guides (no Studio required)
 
@@ -69,6 +69,22 @@ points at), and `component_name` is what humans call it. Everything else in
 the schema — decision options, popover sides, action steps, privacy masks, review
 flags — is **optional enrichment**; add it when you need it, never before.
 
+## Formatting the instruction text
+
+`instruction` (and only `instruction` — titles and labels stay plain) understands a
+small, safe Markdown subset, so a longer step reads like a scannable note instead of
+one wall of text:
+
+- `**bold**` — the word the eye should land on
+- `` `code` `` — a command, class, or column name
+- a line starting with `- ` (or `* `) becomes a bullet; consecutive ones become a list
+- a single newline is a line break; a blank line is a paragraph gap
+
+Everything else is shown literally. The text is HTML-escaped **before** any of that is
+applied, so anything resembling a tag (`<script>`, `<img …>`) renders as plain
+characters, never markup — a guide can't inject anything into the host page. Keep it
+tight: a sentence or two plus a short list is the sweet spot.
+
 ## Anchors: how to pick a selector without pain
 
 Best: add a marker to your own Blade (Laravel's HTML templating) or Filament code and
@@ -86,6 +102,60 @@ Naming the marker: kebab-case, `{thing}` or `{thing}-{role}` — `widget-approve
 
 Second-best: a stable structural class (`.fi-ta` is the page's table). Avoid ids
 that look generated, and avoid anything positional if you can.
+
+## Anchors behind a click: tabs, dropdowns, and modals
+
+Some of the best anchors don't exist in the page until something is opened — a tab
+panel, a row's actions (⋯) menu, a modal. Point a step at one directly and it can't
+spotlight what isn't there yet. Give the step a `reveal` list of the trigger(s) to
+open first, and Splain clicks its way in before anchoring:
+
+```json
+{
+  "key": "log-a-touch",
+  "kind": "instruction",
+  "title": "Log the call here",
+  "instruction": "Open the row's **actions** menu and choose **Log Call**.",
+  "span_ref": "The contacts page",
+  "anchor": { "selector": "[data-splain=\"contact-log-item\"]", "component_name": "the Log Call item" },
+  "reveal": ["[data-splain=\"contact-row-actions\"]"]
+}
+```
+
+`reveal` is an ordered list — each selector is clicked (and waited for) before the
+next, so a target nested one more level deep (a modal opened *from* a menu item) lists
+both: `["[data-splain=\"contact-row-actions\"]", "[data-splain=\"contact-log-item\"]"]`.
+It handles server-rendered (Livewire) tabs, client-side (Alpine `x-show`) tabs,
+teleported dropdowns, and modals alike, and the chain is idempotent — a panel that's
+already open is skipped, not toggled shut. (`reveal` is a walkthrough feature; keep the
+guide's `genre` as `walkthrough`.)
+
+A **default-open** tab still deserves its own `reveal`: "which tab is active" is only
+true at first paint, and a user who arrives on a different tab would otherwise land on
+a missing anchor. The reveal is a no-op when the tab is already showing — free insurance.
+
+## Anchoring looped UI: declare the marker, emit it dynamically
+
+Tabs and table rows tempt a DRY shortcut — interpolate the marker in the loop:
+
+```blade
+<div data-splain="settings-tab-{{ $tab['key'] }}">…</div>   {{-- can't be drift-checked --}}
+```
+
+The catch: `splain:check --drift` scans your **source**, and a value with `{{ … }}` in
+it is a runtime name — it can't resolve to `settings-tab-billing`, so it can't prove
+that anchor exists. Declare the literal in the array that feeds the template, then emit
+it — DRY loop, real literal the gate can grip:
+
+```php
+['key' => 'billing', 'label' => 'Billing', 'data-splain' => 'settings-tab-billing'],
+```
+```blade
+<div data-splain="{{ $tab['data-splain'] }}">…</div>
+```
+
+If a marker is only ever emitted dynamically, `--drift` fails with a hint pointing you
+right here rather than a bare "rotted."
 
 ## Check yourself
 
@@ -116,7 +186,7 @@ Filament app and prints, per resource, the exact **span routes** and the stable
 class metadata, the route table, and source text (never a database row).
 
 ```bash
-php artisan splain:introspect submissions      # one resource
+php artisan splain:introspect documents        # one resource
 php artisan splain:introspect --json            # machine-readable, all resources
 ```
 

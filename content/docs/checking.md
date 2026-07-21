@@ -1,4 +1,4 @@
-<!-- synced from splain@78003f2 docs/checking.md — edit THERE, then re-run bin/sync-docs.sh -->
+<!-- synced from splain@a738cf8 docs/checking.md — edit THERE, then re-run bin/sync-docs.sh -->
 
 # Checking guides (`splain:check`)
 
@@ -44,15 +44,15 @@ signal. (It gates *toward* publish; the governed named-human attested publish it
 gates toward is a splain/pro feature — the separate proprietary package. Free
 publishing is the plain draft→published status flip.)
 
-A real run against the fixture shipped in this repo:
+A run against a guide that still carries a couple of open review flags:
 
 ```bash
-php artisan splain:check tests/Fixtures/approve-applicant-guide.v1.json
+php artisan splain:check path/to/your-guide.json
 # WARN  ... step confirm-readiness: needs review — Branch-flow-ENABLED rendering unverified: ...
 # WARN  ... step confirm-activation: needs review — Post-confirm transition unverified: ...
 # exit 0 — it plays, but two steps still await a human
 
-php artisan splain:check tests/Fixtures/approve-applicant-guide.v1.json --strict
+php artisan splain:check path/to/your-guide.json --strict
 # same two warnings, exit 1 — not publishable until someone reviews those steps
 ```
 
